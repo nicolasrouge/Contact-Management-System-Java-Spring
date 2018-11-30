@@ -23,7 +23,7 @@ import org.lip6.struts.domain.Contact;
 import util.HibernateUtil;
 
 public class DAOContact {
-	public void addContact(String firstName, String lastName, String email, String phonenumber/*String street, String city, String zip, String country*/) {
+	public void addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) {
 		Session session = null;
 		
 		// creation d'un contact et son insertion dans la BD
@@ -41,7 +41,7 @@ public class DAOContact {
 		contact.setNom(firstName);
 		contact.setMail(email);
 		
-		Address address = new Address(1,"","","","");
+		Address address = new Address(1,street, city, zip, country);
 		
 		contact.setAddress(address);
 

@@ -66,6 +66,46 @@
             <html:errors property="phonenumber" />
           </td>
         </tr>
+        
+        <tr>
+          <td align="right">
+           <bean:message key="showlist.street" />
+          </td>
+          <td align="left">
+            <html:text property="street" size="30" maxlength="30"/>
+            <html:errors property="street" />
+          </td>
+        </tr>
+        
+        <tr>
+          <td align="right">
+           <bean:message key="showlist.city" />
+          </td>
+          <td align="left">
+            <html:text property="city" size="30" maxlength="30"/>
+            <html:errors property="city" />
+          </td>
+        </tr>
+        
+        <tr>
+          <td align="right">
+           <bean:message key="showlist.zip" />
+          </td>
+          <td align="left">
+            <html:text property="zip" size="30" maxlength="30"/>
+            <html:errors property="zip" />
+          </td>
+        </tr>
+        
+        <tr>
+          <td align="right">
+           <bean:message key="showlist.country" />
+          </td>
+          <td align="left">
+            <html:text property="country" size="30" maxlength="30"/>
+            <html:errors property="country" />
+          </td>
+        </tr>
     <tr>
           <td align="right">
             <html:submit><bean:message key="button.save" /></html:submit>
