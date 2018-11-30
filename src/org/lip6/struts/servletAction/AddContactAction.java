@@ -23,15 +23,17 @@ public class AddContactAction extends Action {
     	final AddContactValidationForm lForm=(AddContactValidationForm)pForm;
     	
         
-        //final long id = lForm.getId();
-        final String firstName = lForm.getFirstName();
-        final String lastName = lForm.getLastName();
-        final String email = lForm.getEmail();
+    	//final long id = lForm.getId();
+        final String nom = lForm.getFirstName();
+        final String prenom = lForm.getLastName();
+        final String mail = lForm.getEmail();
+        final String phonenumber = lForm.getPhonenumber();
 
+        System.out.println(org.hibernate.Version.getVersionString());
         //créer un nouveau contact
         final DAOContact lDAOContact = new DAOContact();
         //final String lError = lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
-        lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
+        lDAOContact.addContact(nom, prenom, mail, phonenumber);
         //lDAOContact.addContact();
         //créer la liste qu'on va envoyer en parametre dans le forward
         List<Contact> listContacts = new ArrayList<Contact>();

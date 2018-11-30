@@ -23,7 +23,7 @@ import org.lip6.struts.domain.Contact;
 import util.HibernateUtil;
 
 public class DAOContact {
-	public void addContact(String firstName, String lastName, String email, String street, String city, String zip, String country) {
+	public void addContact(String firstName, String lastName, String email, String phonenumber/*String street, String city, String zip, String country*/) {
 		Session session = null;
 		
 		// creation d'un contact et son insertion dans la BD
@@ -41,14 +41,14 @@ public class DAOContact {
 		contact.setNom(firstName);
 		contact.setMail(email);
 		
-		Address address = new Address(1,"street","city","zip","country");
+		Address address = new Address(1,"","","","");
 		
 		contact.setAddress(address);
 
-		//PhoneNumber phone = new PhoneNumber();
-		//phone.setPhone_ID(12);
-		//phone.setPhoneNumber("073949383");
-		//phone.setContact(contact);
+		PhoneNumber phone = new PhoneNumber();
+		phone.setPhone_ID(12);
+		phone.setPhoneNumber(phonenumber);
+		phone.setContact(contact);
 		
 		//ContactGroup groupe = new ContactGroup();
 		//groupe.setGroup_ID(1);
@@ -70,9 +70,8 @@ public class DAOContact {
 			org.hibernate.Transaction tx = session.beginTransaction();
 			
 			session.save(address);
-			//session.save(address1);
 			session.save(contact);
-			//session.save(phone);
+			session.save(phone);
 			//session.save(groupe);
 			//session.save(entreprise);
 			
@@ -92,23 +91,6 @@ public class DAOContact {
 		}
 
 	}
-	
-	/*public List<Contact> getListContacts(){
-		//Session session = null;
-		//session = HibernateUtil.getSessionFactory().getCurrentSession();
-		org.hibernate.Transaction tx = session.beginTransaction();
-		
-		List<Contact>lescontacts = new ArrayList<Contact>();
-		
-		StringBuffer requestS = new StringBuffer();
-		requestS.append("select contact from Contact contact");
-		Query request = session.createQuery(requestS.toString());
-		
-		List<Contact> results = request.list();
-		
-		lescontacts = results;
-		return lescontacts;
-	}*/
 	
 	public List<Contact> getListContacts() {
 		List<Contact> lesContacts = new ArrayList<Contact>();

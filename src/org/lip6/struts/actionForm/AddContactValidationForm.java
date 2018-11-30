@@ -11,9 +11,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.Contact1;
 import org.lip6.struts.domain.DAOContact;
-import org.lip6.struts.domain.DAOContact1;
 
 public class AddContactValidationForm extends ActionForm {
 
@@ -26,13 +24,8 @@ public class AddContactValidationForm extends ActionForm {
     private String firstName=null;
     private String lastName=null;
     private String email=null;
+    private String phonenumber=null;
 	
-    /*public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}*/
 	public String getFirstName() {
 		return firstName;
 	}
@@ -51,12 +44,19 @@ public class AddContactValidationForm extends ActionForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		//this.id=0;
 		this.firstName=null;
 		this.lastName=null;
 		this.email=null;
+		this.phonenumber=null;
 	}
 	@Override
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {

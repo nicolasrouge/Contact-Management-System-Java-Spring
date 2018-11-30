@@ -56,6 +56,16 @@
             <html:errors property="email" />
           </td>
         </tr>
+        
+         <tr>
+          <td align="right">
+           <bean:message key="showlist.tel" />
+          </td>
+          <td align="left">
+            <html:text property="phonenumber" size="30" maxlength="30"/>
+            <html:errors property="phonenumber" />
+          </td>
+        </tr>
     <tr>
           <td align="right">
             <html:submit><bean:message key="button.save" /></html:submit>
