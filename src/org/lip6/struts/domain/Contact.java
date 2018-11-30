@@ -25,6 +25,15 @@ public class Contact {
 		this.address = address;
 	}
 	
+	public Contact(Contact contact) {
+		super();
+		this.contact_ID = contact.contact_ID;
+		this.nom = contact.nom;
+		this.prenom = contact.prenom;
+		this.mail = contact.mail;
+		this.address = contact.address;
+	}
+
 	public long getContact_ID() {
 		return contact_ID;
 	}

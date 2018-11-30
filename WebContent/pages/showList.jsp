@@ -32,23 +32,24 @@
 	</tr>
 	
 	<logic:iterate name="listContacts" id="listContactId">
-
-	
 	<tr>
-		<td><bean:write name="listContactId" property="id"/></td>
-		<td><bean:write name="listContactId" property="lastName"/></td>
-		<td><bean:write name="listContactId" property="firstName"/></td>
-		<td><bean:write name="listContactId" property="email"/></td>
+		<td><bean:write name="listContactId" property="contact_ID"/></td>
+		<td><bean:write name="listContactId" property="prenom"/></td>
+		<td><bean:write name="listContactId" property="nom"/></td>
+		<td><bean:write name="listContactId" property="mail"/></td>
 		
-		<td><html:link action="UpdatePage.do" paramId="id" paramName="listContactId" paramProperty="id">
+		<td><html:link action="UpdatePage.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
 		<bean:message key="contact.update" />
 		</html:link></td>
 		
-		<td><html:link action="RemoveContact.do" paramId="id" paramName="listContactId" paramProperty="id">
+		<td><html:link action="RemoveContact.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
 		<bean:message key="contact.remove" />
 		</html:link></td>
 	</tr>
 	</logic:iterate>
+	
+	
+	
 	</table>
 			<h4>
 			<a href="Main.do"><bean:message key="main.redirection" /></a>

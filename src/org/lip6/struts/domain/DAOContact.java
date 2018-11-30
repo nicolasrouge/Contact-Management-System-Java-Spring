@@ -1,14 +1,29 @@
 package org.lip6.struts.domain;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import org.hibernate.FetchMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import org.lip6.struts.domain.Contact;
 import util.HibernateUtil;
 
 public class DAOContact {
-	public void addContact(/*String firstName, String lastName, String email, String street, String city, String zip, String country*/) {
+	public void addContact(String firstName, String lastName, String email, String street, String city, String zip, String country) {
 		Session session = null;
 		
 		// creation d'un contact et son insertion dans la BD
@@ -22,13 +37,13 @@ public class DAOContact {
 		Contact contact = new Contact();
 		
 		contact.setContact_ID(1);
-		contact.setPrenom("lastName");
-		contact.setNom("firstName");
-		contact.setMail("email");
+		contact.setPrenom(lastName);
+		contact.setNom(firstName);
+		contact.setMail(email);
 		
-		//Address address = new Address(1,street,city,zip,country);
+		Address address = new Address(1,"street","city","zip","country");
 		
-		//contact.setAddress(address);
+		contact.setAddress(address);
 
 		//PhoneNumber phone = new PhoneNumber();
 		//phone.setPhone_ID(12);
@@ -54,7 +69,7 @@ public class DAOContact {
 			// mettre les actions entre une transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			
-			//session.save(address);
+			session.save(address);
 			//session.save(address1);
 			session.save(contact);
 			//session.save(phone);
@@ -77,6 +92,56 @@ public class DAOContact {
 		}
 
 	}
+	
+	/*public List<Contact> getListContacts(){
+		//Session session = null;
+		//session = HibernateUtil.getSessionFactory().getCurrentSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		
+		List<Contact>lescontacts = new ArrayList<Contact>();
+		
+		StringBuffer requestS = new StringBuffer();
+		requestS.append("select contact from Contact contact");
+		Query request = session.createQuery(requestS.toString());
+		
+		List<Contact> results = request.list();
+		
+		lescontacts = results;
+		return lescontacts;
+	}*/
+	
+	public List<Contact> getListContacts() {
+		List<Contact> lesContacts = new ArrayList<Contact>();
+		try {
+			//Session session = null;
+			//session = HibernateUtil.getSessionFactory().getCurrentSession();
+			//org.hibernate.Transaction tx = session.beginTransaction();
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			StringBuffer requestS = new StringBuffer();
+			requestS.append("select contact from Contact contact");
+			Query request = session.createQuery(requestS.toString());
+			
+			@SuppressWarnings("unchecked")
+			List<Contact> list = request.list();
+			//on récupère chaque contact de la requète et on les mets dans la liste 'lescontacts'
+			for(Contact contact : list) {
+				Contact c = new Contact(contact);
+				c.setContact_ID(contact.getContact_ID());
+				lesContacts.add(c);
+			}
+			
+			session.close();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+	}
+		return lesContacts;
+	}
+}
+
+	/*
 	public void displayContact() {
 		Session session = null;
 		try {
@@ -100,5 +165,4 @@ public class DAOContact {
 			System.out.println(e.getMessage());
 
 		}
-	}
-}
+	}*/

@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.AddContactValidationForm;
+import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
 
 
@@ -27,16 +28,15 @@ public class AddContactAction extends Action {
         final String lastName = lForm.getLastName();
         final String email = lForm.getEmail();
 
-        System.out.println(org.hibernate.Version.getVersionString());
         //créer un nouveau contact
         final DAOContact lDAOContact = new DAOContact();
         //final String lError = lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
-        //lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
-        lDAOContact.addContact();
+        lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
+        //lDAOContact.addContact();
         //créer la liste qu'on va envoyer en parametre dans le forward
-        //List<Contact1> listContacts = new ArrayList<Contact1>();
-        //listContacts = lDAOContact.getListContacts();    
-    	//pRequest.setAttribute("listContacts", listContacts);
+        List<Contact> listContacts = new ArrayList<Contact>();
+        listContacts = (List<Contact>) lDAOContact.getListContacts();
+    	pRequest.setAttribute("listContacts", listContacts);
         
     	// if no exception is raised,  forward "success"
 		return pMapping.findForward("success");
