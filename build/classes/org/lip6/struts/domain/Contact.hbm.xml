@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.lip6.struts.domain">
+
+<class name="Contact" table="CONTACT" >
+
+		<id name="contact_ID" type="long" column="contact_ID">
+			<generator class="increment" />
+		</id>
+
+		<property name="nom">
+			<column name="nom"></column>
+		</property>
+
+		<property name="prenom">
+			<column name="prenom"></column>
+		</property>
+
+		<property name="mail">
+			<column name="mail"></column>
+		</property>
+
+		<!-- on veut un 'one-to-one' : pour un contact on a 0 ou 1 adresse -->
+		<many-to-one name="address" column="address_ID" unique="true" not-null="true"/>
+
+		<!-- pour un contact on a 0 ou n numéros -->
+		<set name="phones" inverse="true">
+			<key column="ID_CONTACT"/>
+			<one-to-many class="PhoneNumber" />
+		</set>
+		
+		<!-- pour un contact on a 0 ou n groupes -->
+		<set name="groups" table="CONTACT_GROUP" inverse="true">
+			<key column="contact_ID"/>
+			<many-to-many class="ContactGroup" column="group_ID"/>
+		</set>
+		
+		<joined-subclass name="Entreprise" table="ENTREPRISE">
+			<key column="contact_ID"/>
+			<property name="num_siret" type="long" column="num_siret"/>
+		</joined-subclass>
+
+	</class>
+	
+</hibernate-mapping>

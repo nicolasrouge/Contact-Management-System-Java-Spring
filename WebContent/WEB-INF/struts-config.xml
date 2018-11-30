@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+    <form-beans>
+        <form-bean name="AddContactValidationForm" type="org.lip6.struts.actionForm.AddContactValidationForm"/>
+        <form-bean name="LoginForm" type="org.lip6.struts.actionForm.LoginForm"/>
+        <form-bean name="RechercheForm" type="org.lip6.struts.actionForm.RechercheForm"/>
+        <form-bean name="UpdateValidationForm" type="org.lip6.struts.actionForm.UpdateValidationForm"/>
+        <form-bean name="DeleteContactValidationForm" type="org.lip6.struts.actionForm.DeleteContactValidationForm"/>
+    	<form-bean name="SearchValidationForm" type="org.lip6.struts.actionForm.SearchValidationForm"/>
+    </form-beans>
+	
+    <action-mappings>
+    
+    <action path="/Main" forward="/pages/main.jsp" />
+    <action path="/ContactCreation" forward="/pages/contactCreation.jsp" />
+    <action path="/RecherchePage" forward="/pages/search.jsp" />
+    <action path="/LoginPage" forward="/pages/login.jsp" />
+    <action path="/UpdatePage" forward="/pages/updateContact.jsp" />
+    
+    <action path="/AddContact" 
+                type="org.lip6.struts.servletAction.AddContactAction"
+                name="AddContactValidationForm"
+                input="/pages/contactCreation.jsp"
+                validate="true"
+                scope="request">       
+            <forward name="success" path="/pages/showList.jsp" />
+            <forward name="error" path="/pages/error.jsp" />
+    </action>
+    
+    <action path="/Login"
+    			type="org.lip6.struts.servletAction.LoginAction"
+    			name="LoginForm" 
+    			input="/pages/login.jsp" 
+     			scope="session">
+     			
+        	<forward name="success" path="/pages/main.jsp" />
+        	<forward name="failure" path="/pages/failure.jsp" />
+    </action>
+    
+    <action
+		path="/ListPage"
+		type="org.lip6.struts.servletAction.ContactListAction">
+		<forward name="displaylist" path="/pages/showList.jsp"/>
+		<forward name="error" path="/pages/error.jsp" />
+	</action>
+	
+    <action path="/UpdateContact"
+    			type="org.lip6.struts.servletAction.UpdateAction"
+    			name="UpdateValidationForm"
+    			input="/pages/updateContact.jsp"
+     			scope="request">
+     			
+        	<forward name="displaylist" path="/pages/showList.jsp" />
+        	<forward name="error" path="/pages/error.jsp" />
+    </action>
+        <action path="/DeleteContact" forward="/pages/deleteContact.jsp"/>
+        
+    <action path="/RemoveContact"
+            type="org.lip6.struts.servletAction.DeleteContactAction"
+            name="DeleteContactValidationForm"
+            scope="request"
+            input="/pages/contactList.jsp"
+            parameter="action">
+            
+            <forward name="success" path="/pages/showList.jsp"/>
+            <forward name="error" path="/pages/errordelete.jsp"/>
+    </action>
+    
+        <action path="/Search" 
+				type="org.lip6.struts.servletAction.SearchAction"
+				name="SearchValidationForm" scope="request" 
+				input="/pages/search.jsp">
+				
+			<forward name="success" path="/pages/resultSearch.jsp" />
+			<forward name="error" path="/pages/error.jsp" />
+    </action>
+    
+	</action-mappings>
+<!-- ========== Ressources de definitions de messages =========================== -->
+    <message-resources parameter="Resources" />
+
+<!-- Validator Configuration 
+<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+<set-property property="pathnames"
+ value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+</plug-in>-->
+</struts-config>

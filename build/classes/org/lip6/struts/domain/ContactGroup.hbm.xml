@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.lip6.struts.domain">
+
+	<class name="ContactGroup" table="CONTACTSGROUP">
+		<id name="group_ID" type="long" column="group_ID">
+			<generator class="increment" />
+		</id>
+		
+		<property name="groupName">
+			<column name="groupName"></column>
+		</property>
+		
+		<!-- pour un groupe on a 0 ou n contacts -->
+		<set name="contacts" table="CONTACT_GROUP">
+			<key column="group_ID"/>
+			<many-to-many class="Contact" column="contact_ID"/>
+		</set>
+		
+	</class>
+</hibernate-mapping>
