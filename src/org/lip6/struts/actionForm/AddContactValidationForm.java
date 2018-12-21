@@ -25,6 +25,10 @@ public class AddContactValidationForm extends ActionForm {
     private String lastName=null;
     private String email=null;
     private String phonenumber=null;
+    private String street=null;
+    private String city=null;
+    private String zip=null;
+    private String country=null;
 	
 	public String getFirstName() {
 		return firstName;
@@ -50,6 +54,30 @@ public class AddContactValidationForm extends ActionForm {
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
 	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		//this.id=0;
@@ -57,6 +85,10 @@ public class AddContactValidationForm extends ActionForm {
 		this.lastName=null;
 		this.email=null;
 		this.phonenumber=null;
+		this.street=null;
+		this.city=null;
+		this.zip=null;
+		this.country=null;
 	}
 	@Override
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
@@ -96,7 +128,7 @@ public class AddContactValidationForm extends ActionForm {
         	errors.add("email", new ActionMessage("creation.email.error.required"));
         }
         
-        //vÃ©rification du format de l'email
+        //vérification du format de l'email
         email = email.trim();
     	EmailValidator ev = EmailValidator.getInstance();
     	

@@ -28,12 +28,16 @@ public class AddContactAction extends Action {
         final String prenom = lForm.getLastName();
         final String mail = lForm.getEmail();
         final String phonenumber = lForm.getPhonenumber();
+        final String street = lForm.getStreet();
+        final String city = lForm.getCity();
+        final String zip = lForm.getZip();
+        final String country = lForm.getCountry();
 
         System.out.println(org.hibernate.Version.getVersionString());
         //créer un nouveau contact
         final DAOContact lDAOContact = new DAOContact();
         //final String lError = lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
-        lDAOContact.addContact(nom, prenom, mail, phonenumber);
+        lDAOContact.addContact(nom, prenom, mail, phonenumber, street, city, zip, country);
         //lDAOContact.addContact();
         //créer la liste qu'on va envoyer en parametre dans le forward
         List<Contact> listContacts = new ArrayList<Contact>();
