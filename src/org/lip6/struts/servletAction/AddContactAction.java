@@ -15,6 +15,8 @@ import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.AddContactValidationForm;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class AddContactAction extends Action {
@@ -35,10 +37,11 @@ public class AddContactAction extends Action {
 
         System.out.println(org.hibernate.Version.getVersionString());
         //créer un nouveau contact
+        //ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        //final DAOContact lDAOContact = (DAOContact) context.getBean("idDaoContact");
         final DAOContact lDAOContact = new DAOContact();
-        //final String lError = lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
+       
         lDAOContact.addContact(nom, prenom, mail, phonenumber, street, city, zip, country);
-        //lDAOContact.addContact();
         //créer la liste qu'on va envoyer en parametre dans le forward
         List<Contact> listContacts = new ArrayList<Contact>();
         listContacts = (List<Contact>) lDAOContact.getListContacts();

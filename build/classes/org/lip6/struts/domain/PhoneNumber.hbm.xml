@@ -9,6 +9,8 @@
   	 <id name="phone_ID" type="long" column="id" >
    		<generator class="increment"/>
   	 </id>
+  	 
+  	 <version name="version" access="field" column="VERSION"/>
 
      <property name="phoneNumber">
      	<column name="phone_number" />

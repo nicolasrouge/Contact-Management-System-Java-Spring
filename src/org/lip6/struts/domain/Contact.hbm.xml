@@ -9,6 +9,8 @@
 		<id name="contact_ID" type="long" column="contact_ID">
 			<generator class="increment" />
 		</id>
+		
+		<version name="version" access="field" column="VERSION"/>
 
 		<property name="nom">
 			<column name="nom"></column>
@@ -21,7 +23,7 @@
 		<property name="mail">
 			<column name="mail"></column>
 		</property>
-
+  	 
 		<!-- on veut un 'one-to-one' : pour un contact on a 0 ou 1 adresse -->
 		<many-to-one name="address" column="address_ID" unique="true" not-null="true"/>
 

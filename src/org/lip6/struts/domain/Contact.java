@@ -12,6 +12,7 @@ public class Contact {
 	private Address address;
 	private Set<PhoneNumber> phones = new HashSet<PhoneNumber>();
 	private Set<ContactGroup> groups = new HashSet<ContactGroup>();
+	private int version;
 	
 	public Contact() {
 	}
@@ -88,5 +89,9 @@ public class Contact {
 
 	public void setGroups(Set<ContactGroup> groups) {
 		this.groups = groups;
+	}
+	
+	public int getVersion(int version) {
+		return version;
 	}
 }

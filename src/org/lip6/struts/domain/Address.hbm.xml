@@ -9,7 +9,8 @@
   	 <id name="address_ID" type="long" column="ID_ADDRESS" >
    		<generator class="increment"/>
   	 </id>
-
+  	 <version name="version" access="field" column="VERSION"/>
+  	 
      <property name="street">
      	<column name="STREET" />
    	 </property>
