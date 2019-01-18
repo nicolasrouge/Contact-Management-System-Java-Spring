@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
+import org.lip6.struts.domain.PhoneNumber;
 
 public class ContactService implements IContactService {
 
@@ -12,14 +13,14 @@ public class ContactService implements IContactService {
 	@Override
 	public boolean createContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
 		
-		return (daocontact= new DAOContact()).addContact(firstName,lastName,email,phonenumber,street,city,zip,country);
+		return daocontact.addContact(firstName,lastName,email,phonenumber,street,city,zip,country);
 
 	}
 
 	@Override
 	public List<Contact> getListContact() {
 		// TODO Auto-generated method stub
-		return (daocontact= new DAOContact()).getListContacts();
+		return daocontact.getListContacts();
 	}
 
 	@Override
@@ -44,5 +45,26 @@ public class ContactService implements IContactService {
 	public List<Contact> searchContact(String keyword) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean addGroup(String nomGroup) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public void generate() {
+		daocontact.generate();
+	}
+
+	@Override
+	public Contact getContact(long id) {
+		return daocontact.getContact(id);
+	}
+
+	@Override
+	public List<PhoneNumber> getPhones(long id) {
+		return daocontact.getPhones(id);
 	}
 }

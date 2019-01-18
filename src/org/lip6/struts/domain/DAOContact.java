@@ -6,11 +6,26 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-
+import org.hibernate.SessionFactory;
 import org.lip6.struts.domain.Contact;
 import util.HibernateUtil;
 
 public class DAOContact {
+	
+	
+	private SessionFactory sessionFactory;
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
+	public DAOContact(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;}
+
+	/*
 	public boolean addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) {
 		Session session = null;
 		boolean res = false;
@@ -77,7 +92,38 @@ public class DAOContact {
 		}
 		return res;
 
+	}*/
+	public boolean addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country)
+	{
+		boolean res = false;
+		Contact newcontact = new Contact();
+		
+		newcontact.setContact_ID(1);
+		newcontact.setPrenom(lastName);
+		newcontact.setNom(firstName);
+		newcontact.setMail(email);
+		
+		Address newaddress = new Address(1,street,city,zip,country);
+		
+		newcontact.setAddress(newaddress);
+
+		PhoneNumber newphone = new PhoneNumber();
+		newphone.setPhone_ID(12);
+		newphone.setPhoneNumber(phonenumber);
+		newphone.setContact(newcontact);
+	
+		try {
+			sessionFactory.getCurrentSession().save(newaddress);
+			sessionFactory.getCurrentSession().save(newcontact);
+			sessionFactory.getCurrentSession().save(newphone);
+			System.out.println("Done");
+			res = true;
+	} catch (Exception e) {
+	System.out.println(e.getMessage());
+
 	}
+	return res;
+}
 	
 	public Contact getContact(long id) {
 		try {

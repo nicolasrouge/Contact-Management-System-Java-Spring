@@ -13,22 +13,27 @@ import org.lip6.struts.actionForm.UpdateContactValidationForm;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
 import org.lip6.struts.domain.PhoneNumber;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.ContactService;
 
 public class ShowContactAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		UpdateContactValidationForm lForm = new UpdateContactValidationForm();
 		
 		final int id = Integer.parseInt(request.getParameter("id"));
-		
-    	DAOContact lDAOContact = new DAOContact();
+    	
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
 	     
-    	Contact contact = lDAOContact.getContact(id);
+    	Contact contact = lContactService.getContact(id);
 		lForm.setId(id);
 		lForm.setFirstName(contact.getPrenom());
 		lForm.setLastName(contact.getNom());
 		lForm.setEmail(contact.getMail());
 		List<PhoneNumber> phones;
-		phones = lDAOContact.getPhones(id);
+		phones = lContactService.getPhones(id);
 		lForm.setPhoneNumber(phones.get(0).getPhoneNumber());
 		lForm.setStreet(contact.getAddress().getStreet());
 		lForm.setCity(contact.getAddress().getCity());
