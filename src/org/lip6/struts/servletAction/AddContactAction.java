@@ -22,9 +22,6 @@ public class AddContactAction extends Action {
     
     public ActionForward execute(final ActionMapping pMapping, ActionForm pForm, final HttpServletRequest pRequest, final HttpServletResponse pResponse) throws Exception {
     	final AddContactValidationForm lForm=(AddContactValidationForm)pForm;
-    	
-
-        Contact contact = new Contact();
         
     	//final long id = lForm.getId();
         final String nom = lForm.getFirstName();
@@ -36,8 +33,9 @@ public class AddContactAction extends Action {
         final String zip = lForm.getZip();
         final String country = lForm.getCountry();
 
-        System.out.println(org.hibernate.Version.getVersionString());
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        //System.out.println(org.hibernate.Version.getVersionString());
+ 
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
        
         lContactService.createContact(nom,prenom,mail,phonenumber,street,city,zip,country);

@@ -37,12 +37,6 @@ public class DAOContact {
 		
 		// creation d'un contact et son insertion dans la BD
 		
-		// dans le cas d'une startegie de generation de cle "increment" par exp,
-		// cette ligne peut être omise
-		// car l'id sera affecté automatiquement comme max des id + 1 (de la
-		// table contact)
-		// contact.setId(1);
-		
 		Contact newcontact = new Contact();
 		
 		newcontact.setContact_ID(1);
@@ -88,9 +82,6 @@ public class DAOContact {
 			//System.out.println("before Commit instruction");
 			// Commiter la transaction sinon rien ne se passe
 			//tx.commit();
-			
-			//Ligne nouvelle à intégrer une fois Spring AOP intégré
-			//sessionFactory.getCurrentSession().save(contact);
 			
 			System.out.println("Done");
 			res = true;
@@ -332,16 +323,8 @@ public class DAOContact {
     	}
 	*/
 	public void generate() {
-		//Adresse adresse = new Adresse("rue des olives","Nanterre", "92000", "France");
-		
-		//Contact c = new Contact("Nicolas", "Rouge", "nicolas.rouge@gmail.com", "0750474601", adresse);
 		addContact("Nicolas", "Rouge", "nicolas.rouge@gmail.com", "0750474601","rue des olives","Nanterre", "92000", "France");
 		addContact("Lucas", "Nayet", "lucas.nayet@gmail.com", "0634261733","rue du puit","Nanterre", "92000", "France");
-	}
-
-	public boolean addContact(Contact contact) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public Contact displayContact(int idcontact) {

@@ -14,6 +14,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.ContactService;
 
 public class ContactListAction extends Action {
 	
@@ -21,12 +25,14 @@ public class ContactListAction extends Action {
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NamingException, SQLException {
 			
-        DAOContact lDAOContact = new DAOContact();
-        lDAOContact.generate();
+    	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
+        //DAOContact lDAOContact = new DAOContact();
+        //lDAOContact.generate();
         
         List<Contact> listContacts = new ArrayList<Contact>();
         
-        listContacts = (List<Contact>) lDAOContact.getListContacts();
+        listContacts = (List<Contact>) lContactService.getListContact();
         
     	request.setAttribute("listContacts", listContacts);
     	if(listContacts.isEmpty()) {
