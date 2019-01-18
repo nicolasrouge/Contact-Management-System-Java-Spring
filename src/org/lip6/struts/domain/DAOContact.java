@@ -1,20 +1,8 @@
 package org.lip6.struts.domain;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -49,13 +37,6 @@ public class DAOContact {
 		phone.setPhone_ID(12);
 		phone.setPhoneNumber(phonenumber);
 		phone.setContact(contact);
-		
-		//ContactGroup groupe = new ContactGroup();
-		//groupe.setGroup_ID(1);
-		//groupe.setGroupName("M2C");
-		//groupe.setContact(contact);
-		
-		//Entreprise entreprise = new Entreprise(22,"bon","ae","bon.ae@gmail.com",address1,362521879);
 		
 		try {
 			
@@ -92,6 +73,89 @@ public class DAOContact {
 
 	}
 	
+	public Contact getContact(long id) {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+		      session.beginTransaction();
+		       
+		      Contact c = (Contact) session.load(Contact.class, id);
+		      System.out.println("GET CONTACT" + c.getPrenom() + " --------------- ");
+		       
+		      //Let's verify the entity name
+		      System.out.println(session.getEntityName(c));
+		       
+		      session.getTransaction().commit();
+			return c;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<PhoneNumber> getPhones(long id) {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+		      session.beginTransaction();
+		      
+		      Query q = session.createQuery("select pN from PhoneNumber pN where pN.id = :id");
+		      q.setParameter("id", id);
+		      @SuppressWarnings("unchecked")
+			List<PhoneNumber> list = q.list();
+		      
+		      //Contact c = (Contact) session.load(Contact.class, id);
+		      //System.out.println("GET CONTACT" + c.getPrenom() + " --------------- ");
+		       
+		      //Let's verify the entity name
+		      //System.out.println(session.getEntityName(c));
+		       
+		      session.getTransaction().commit();
+			return list;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public boolean addGroup(String nomGroup) {
+		Session session = null;
+		ContactGroup group = new ContactGroup();
+
+		group.setGroup_ID(1);
+		group.setGroupName(nomGroup);
+		
+		//créer un contact au préalable
+		//group.setContact(contact);
+		
+		try {
+			
+			// utilisation de la classe utilitaire HibernateUtil
+			// qui applique le pattern singleton et
+			// qui assure que SessionFactory ne sera instanciee qu'une seule fois
+			
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+			// mettre les actions entre une transaction
+			org.hibernate.Transaction tx = session.beginTransaction();
+			
+			session.save(group);
+			
+			// pour montrer qu'hibernate met à jour systematiquement la base de données
+			// et sans faire un save à nouveau
+			//contact.setNom("TOTOTOTO");
+			
+			System.out.println("before Commit instruction");
+			// Commiter la transaction sinon rien ne se passe
+			tx.commit();
+
+			System.out.println("Done");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+
+		}
+		return true;
+
+	}
+	
 	public List<Contact> getListContacts() {
 		List<Contact> lesContacts = new ArrayList<Contact>();
 		try {
@@ -121,30 +185,154 @@ public class DAOContact {
 	}
 		return lesContacts;
 	}
-}
-
+    
 	/*
-	public void displayContact() {
-		Session session = null;
-		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
-			
-			org.hibernate.Transaction tx = session.beginTransaction();
-			
-			StringBuffer requests = new StringBuffer();
-			requests.append("select contact from Contact contact");
-			Query request = session.createQuery( requests.toString() );
-			List results = request.list();
-			
-			Object[] firstResult = (Object[]) results.get(0);
-			Contact contact = (Contact)firstResult[0];
-			Address address = (Address) firstResult[1];
-			
-			tx.commit();
-			System.out.println("LISTE ---------------> " + contact.getNom());
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+	 *     
+	
+	public String updateContact(long id, String firstName, String lastName, String email) {
+        try {
+            Context lContext = new InitialContext();
+            DataSource lDataSource = (DataSource) lContext.lookup(RESOURCE_JDBC);
+            Connection lConnection  = lDataSource.getConnection();
+            // updating a new contact
+			int i=lConnection.createStatement().executeUpdate("UPDATE contact SET LASTNAME='" + lastName + "', FIRSTNAME='" 
+			+ firstName + "', EMAIL='" + email + "' WHERE ID_contact ='"+id+"'");
+			System.out.println(" DAO UPDATE --> Nombre de ligne(s) modifiÃ©e(s) dans la BDD: " + i);
+            return null;
+        } catch (NamingException e) {
+            return "NamingException : " + e.getMessage();
+        } catch (SQLException e) {
+            return "SQLException : " + e.getMessage();
+        }
+    }
+    
+    public Contact1 displayContact(int idcontact) throws NamingException, SQLException {
 
+		System.out.println("DAO DISPLAY CLIENT : " + idcontact);
+		Contact1 contact = new Contact1();
+        Context lContext = new InitialContext();
+		DataSource lDataSource = (DataSource) lContext.lookup(RESOURCE_JDBC);
+        Connection lConnection  = lDataSource.getConnection();
+		try {
+			final PreparedStatement lPreparedStatementcontact = lConnection.prepareStatement("SELECT ID_contact, LASTNAME, FIRSTNAME, EMAIL FROM contact WHERE ID_contact=?");
+			lPreparedStatementcontact.setLong(1, idcontact);
+			
+			ResultSet rscontact = lPreparedStatementcontact.executeQuery();
+			
+			while (rscontact.next()) {
+				final int id = rscontact.getInt("ID_contact");
+				final String lastName = rscontact.getString("LASTNAME");
+				final String firstName = rscontact.getString("FIRSTNAME");
+				final String email = rscontact.getString("EMAIL");
+				contact= new Contact1(id,lastName,firstName, email);
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
 		}
-	}*/
+		finally{
+			try {
+				if(lConnection!=null) {
+					lConnection.close();
+				}
+					
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return contact;
+	}
+    public int deleteContact(long id) throws SQLException,Exception {
+        int i=0;
+        try {
+            final Context lContext = new InitialContext();
+            final DataSource lDataSource = (DataSource) lContext.lookup(RESOURCE_JDBC);
+            final Connection lConnection  = lDataSource.getConnection();
+            // deleting a new contact
+            final PreparedStatement lPreparedStatementDelete =  
+                    lConnection.prepareStatement("DELETE FROM contact WHERE ID_contact="+id);
+            i=lPreparedStatementDelete.executeUpdate();
+            return i;
+             
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+    }
+    }
+    
+    public List<Contact1> searchContact(String word) throws NamingException, SQLException {
+		System.out.println("Entre dans search contact DAO");
+		List<Contact1>contacts = new ArrayList<Contact1>();
+        Context lContext = new InitialContext();
+        DataSource lDataSource = (DataSource) lContext.lookup(RESOURCE_JDBC);
+        Connection lConnection  = lDataSource.getConnection();
+		try {
+			final PreparedStatement lPreparedStatementContact = lConnection.prepareStatement("SELECT ID_CONTACT, LASTNAME, FIRSTNAME, EMAIL FROM contact WHERE ID_CONTACT LIKE ? OR LASTNAME LIKE ? OR FIRSTNAME LIKE ? OR EMAIL LIKE ?");
+			lPreparedStatementContact.setString(1, "%" + word + "%");
+			lPreparedStatementContact.setString(2, "%" + word + "%");
+			lPreparedStatementContact.setString(3, "%" + word + "%");
+			lPreparedStatementContact.setString(4, "%" + word + "%");
+			ResultSet rsContact = lPreparedStatementContact.executeQuery();
+
+			while (rsContact.next()) {
+
+				final Long id = rsContact.getLong("ID_CONTACT");
+				final String lastName = rsContact.getString("LASTNAME");
+				final String firstName = rsContact.getString("FIRSTNAME");
+				final String email = rsContact.getString("EMAIL");
+
+				contacts.add(new Contact1(id, lastName, firstName, email));
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(lConnection!=null) {
+					lConnection.close();
+					//return ArrayList;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return contacts;
+    	}
+	*/
+	public void generate() {
+		//Adresse adresse = new Adresse("rue des olives","Nanterre", "92000", "France");
+		
+		//Contact c = new Contact("Nicolas", "Rouge", "nicolas.rouge@gmail.com", "0750474601", adresse);
+		addContact("Nicolas", "Rouge", "nicolas.rouge@gmail.com", "0750474601","rue des olives","Nanterre", "92000", "France");
+		addContact("Lucas", "Nayet", "lucas.nayet@gmail.com", "0634261733","rue du puit","Nanterre", "92000", "France");
+	}
+
+	public boolean addContact(Contact contact) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Contact displayContact(int idcontact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String updateContact(Contact contact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int deleteContact(long id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public List<Contact> searchContact(String word) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

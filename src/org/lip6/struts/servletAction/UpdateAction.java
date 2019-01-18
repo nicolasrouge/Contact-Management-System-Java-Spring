@@ -12,7 +12,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.lip6.struts.actionForm.UpdateValidationForm;
+import org.lip6.struts.actionForm.UpdateContactValidationForm;
 import org.lip6.struts.domain.Contact1;
 import org.lip6.struts.domain.DAOContact1;
 
@@ -23,7 +23,7 @@ public class UpdateAction extends Action {
     		HttpServletRequest request, 
     		HttpServletResponse response) throws NamingException, SQLException{
     	
-    	UpdateValidationForm updateForm = (UpdateValidationForm) form;
+    	UpdateContactValidationForm updateForm = (UpdateContactValidationForm) form;
     	
     	long id = updateForm.getId();
     	String email = updateForm.getEmail();
