@@ -323,16 +323,8 @@ public class DAOContact {
     	}
 	*/
 	public void generate() {
-		//Adresse adresse = new Adresse("rue des olives","Nanterre", "92000", "France");
-		
-		//Contact c = new Contact("Nicolas", "Rouge", "nicolas.rouge@gmail.com", "0750474601", adresse);
 		addContact("Nicolas", "Rouge", "nicolas.rouge@gmail.com", "0750474601","rue des olives","Nanterre", "92000", "France");
 		addContact("Lucas", "Nayet", "lucas.nayet@gmail.com", "0634261733","rue du puit","Nanterre", "92000", "France");
-	}
-
-	public boolean addContact(Contact contact) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public Contact displayContact(int idcontact) {
