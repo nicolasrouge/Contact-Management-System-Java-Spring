@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,14 +13,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.AddContactValidationForm;
 import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.DAOContact;
-import org.lip6.struts.domain.Address;
 import service.ContactService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import service.ContactService;
-import service.ContactServiceImpl;
 
 
 public class AddContactAction extends Action {
@@ -43,11 +37,8 @@ public class AddContactAction extends Action {
         final String country = lForm.getCountry();
 
         System.out.println(org.hibernate.Version.getVersionString());
-        //créer un nouveau contact
-        //ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
-        //final DAOContact lDAOContact = (DAOContact) context.getBean("idDaoContact");
-        //final DAOContact lDAOContact = new DAOContact();
-        final ContactService lContactService = new ContactService();
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
        
         lContactService.createContact(nom,prenom,mail,phonenumber,street,city,zip,country);
         //lDAOContact.addContact(contact, phonenumber);
@@ -60,4 +51,3 @@ public class AddContactAction extends Action {
 		return pMapping.findForward("success");
     }
 }
-
