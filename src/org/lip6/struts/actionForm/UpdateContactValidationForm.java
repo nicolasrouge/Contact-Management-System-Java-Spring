@@ -14,7 +14,7 @@ import org.lip6.struts.domain.Contact1;
 import org.lip6.struts.domain.DAOContact1;
 
 
-public class UpdateValidationForm extends ActionForm{
+public class UpdateContactValidationForm extends ActionForm{
 
 	/**
 	 * 
@@ -25,7 +25,42 @@ public class UpdateValidationForm extends ActionForm{
     private String firstName=null;
     private String lastName=null;
     private String email=null;
-    
+	private String phoneNumber=null;
+	private String street=null;
+	private String city=null;
+	private String zip=null;
+	private String country=null;
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	public long getId() {
 		return id;
 	}
@@ -57,7 +92,7 @@ public class UpdateValidationForm extends ActionForm{
     	System.out.println("UpdateValidationForm id : " + request.getParameter("id"));
 			Contact1 contact;
 			try {
-				contact = daoContact.displayContact(Integer.valueOf(request.getParameter("id")));//Integer.valueOf(request.getParameter("id"))
+				contact = daoContact.displayContact(Integer.valueOf(request.getParameter("id")));
 		    	this.id  = contact.getId();
 		    	this.lastName =contact.getLastName();
 		    	this.firstName = contact.getFirstName();
@@ -80,7 +115,7 @@ public class UpdateValidationForm extends ActionForm{
             
     		ActionErrors errors = new ActionErrors();
             
-    		//ne doit pas être vide
+    		//ne doit pas etre vide
             if( getFirstName()== null || getFirstName().length() < 1) {
               errors.add("firstName",new ActionMessage("creation.fn.error.required"));
             }
@@ -90,7 +125,7 @@ public class UpdateValidationForm extends ActionForm{
                 errors.add("firstName",new ActionMessage("creation.fn.error.number"));
             }
             
-            //ne doit pas être vide
+            //ne doit pas etre vide
             if( getLastName()== null || getLastName().length() < 1) {
               errors.add("lastName",new ActionMessage("creation.ln.error.required"));
             }
@@ -99,7 +134,7 @@ public class UpdateValidationForm extends ActionForm{
             if( getLastName().matches(".*\\d.*")) {
                 errors.add("lastName",new ActionMessage("creation.ln.error.number"));
             }
-            //ne doit pas être vide
+            //ne doit pas etre vide
             if( getEmail() == null || getEmail().length() < 1) {
               errors.add("email", new ActionMessage("creation.email.error.required"));
             }
