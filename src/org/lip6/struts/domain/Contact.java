@@ -17,15 +17,6 @@ public class Contact {
 	public Contact() {
 	}
 	
-	public Contact(long contact_ID, String nom, String prenom, String mail, Address address) {
-		super();
-		this.contact_ID = contact_ID;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.mail = mail;
-		this.address = address;
-	}
-	
 	public Contact(Contact contact) {
 		super();
 		this.contact_ID = contact.contact_ID;
@@ -33,6 +24,8 @@ public class Contact {
 		this.prenom = contact.prenom;
 		this.mail = contact.mail;
 		this.address = contact.address;
+		this.phones = contact.phones;
+		this.groups = contact.groups;
 	}
 
 	public long getContact_ID() {

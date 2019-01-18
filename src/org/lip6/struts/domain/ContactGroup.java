@@ -9,7 +9,6 @@ public class ContactGroup {
 	private long group_ID;
 	private String groupName;
 	private Set<Contact> contacts = new HashSet<Contact>();
-	private int version;
 	
 	public ContactGroup() {
 		super();

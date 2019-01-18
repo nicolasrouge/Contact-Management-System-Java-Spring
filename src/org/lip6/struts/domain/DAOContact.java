@@ -1,20 +1,8 @@
 package org.lip6.struts.domain;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -23,8 +11,9 @@ import org.lip6.struts.domain.Contact;
 import util.HibernateUtil;
 
 public class DAOContact {
-	public void addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) {
+	public boolean addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) {
 		Session session = null;
+		boolean res = false;
 		
 		// creation d'un contact et son insertion dans la BD
 		
@@ -34,28 +23,21 @@ public class DAOContact {
 		// table contact)
 		// contact.setId(1);
 		
-		Contact contact = new Contact();
+		Contact newcontact = new Contact();
 		
-		contact.setContact_ID(1);
-		contact.setPrenom(lastName);
-		contact.setNom(firstName);
-		contact.setMail(email);
+		newcontact.setContact_ID(1);
+		newcontact.setPrenom(lastName);
+		newcontact.setNom(firstName);
+		newcontact.setMail(email);
 		
-		Address address = new Address(1,street, city, zip, country);
+		Address newaddress = new Address(1,street,city,zip,country);
 		
-		contact.setAddress(address);
+		newcontact.setAddress(newaddress);
 
-		PhoneNumber phone = new PhoneNumber();
-		phone.setPhone_ID(12);
-		phone.setPhoneNumber(phonenumber);
-		phone.setContact(contact);
-		
-		//ContactGroup groupe = new ContactGroup();
-		//groupe.setGroup_ID(1);
-		//groupe.setGroupName("M2C");
-		//groupe.setContact(contact);
-		
-		//Entreprise entreprise = new Entreprise(22,"bon","ae","bon.ae@gmail.com",address1,362521879);
+		PhoneNumber newphone = new PhoneNumber();
+		newphone.setPhone_ID(12);
+		newphone.setPhoneNumber(phonenumber);
+		newphone.setContact(newcontact);
 		
 		try {
 			
@@ -69,9 +51,9 @@ public class DAOContact {
 			// mettre les actions entre une transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			
-			session.save(address);
-			session.save(contact);
-			session.save(phone);
+			session.save(newaddress);
+			session.save(newcontact);
+			session.save(newphone);
 			//session.save(groupe);
 			//session.save(entreprise);
 			
@@ -79,16 +61,21 @@ public class DAOContact {
 			// données
 			// et sans faire un save à nouveau
 			//contact.setNom("TOTOTOTO");
-			
+
 			System.out.println("before Commit instruction");
 			// Commiter la transaction sinon rien ne se passe
 			tx.commit();
-
+			
+			//Ligne nouvelle à intégrer une fois Spring AOP intégré
+			//sessionFactory.getCurrentSession().save(contact);
+			
 			System.out.println("Done");
+			res = true;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
 		}
+		return res;
 
 	}
 	

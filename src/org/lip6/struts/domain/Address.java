@@ -6,7 +6,6 @@ public class Address {
 	private String city;
 	private String zip;
 	private String country;
-	private int version;
 	
 	public Address() {
 		super();

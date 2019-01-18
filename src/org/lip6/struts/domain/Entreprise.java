@@ -7,8 +7,8 @@ public class Entreprise extends Contact{
 		super();
 	}
 	
-	public Entreprise(long contact_ID, String nom, String prenom, String mail, Address address, long num_siret) {
-		super(contact_ID, nom, prenom, mail, address);
+	public Entreprise(Contact contact, long num_siret) {
+		super(contact);
 		this.num_siret = num_siret;
 	}
 	

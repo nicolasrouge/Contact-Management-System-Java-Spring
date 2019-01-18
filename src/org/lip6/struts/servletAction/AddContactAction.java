@@ -15,15 +15,19 @@ import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.AddContactValidationForm;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
+import org.lip6.struts.domain.Address;
+import service.ContactService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class AddContactAction extends Action {
     
-    public ActionForward execute(final ActionMapping pMapping, ActionForm pForm, final HttpServletRequest pRequest, final HttpServletResponse pResponse) throws NamingException, SQLException {
+    public ActionForward execute(final ActionMapping pMapping, ActionForm pForm, final HttpServletRequest pRequest, final HttpServletResponse pResponse) throws Exception {
     	final AddContactValidationForm lForm=(AddContactValidationForm)pForm;
     	
+
+        Contact contact = new Contact();
         
     	//final long id = lForm.getId();
         final String nom = lForm.getFirstName();
@@ -39,12 +43,14 @@ public class AddContactAction extends Action {
         //créer un nouveau contact
         //ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         //final DAOContact lDAOContact = (DAOContact) context.getBean("idDaoContact");
-        final DAOContact lDAOContact = new DAOContact();
+        //final DAOContact lDAOContact = new DAOContact();
+        final ContactService lContactService = new ContactService();
        
-        lDAOContact.addContact(nom, prenom, mail, phonenumber, street, city, zip, country);
+        lContactService.createContact(nom,prenom,mail,phonenumber,street,city,zip,country);
+        //lDAOContact.addContact(contact, phonenumber);
         //créer la liste qu'on va envoyer en parametre dans le forward
         List<Contact> listContacts = new ArrayList<Contact>();
-        listContacts = (List<Contact>) lDAOContact.getListContacts();
+        listContacts = (List<Contact>) lContactService.getListContact();
     	pRequest.setAttribute("listContacts", listContacts);
         
     	// if no exception is raised,  forward "success"

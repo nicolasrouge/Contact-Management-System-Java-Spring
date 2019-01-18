@@ -5,7 +5,6 @@ public class PhoneNumber {
 	private long phone_ID;
 	private String phoneNumber;
 	private Contact contact;
-	private int version;
 	
 	public PhoneNumber() {
 		super();
