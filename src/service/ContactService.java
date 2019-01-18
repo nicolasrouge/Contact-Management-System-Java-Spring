@@ -45,5 +45,4 @@ public class ContactService implements IContactService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

@@ -17,6 +17,12 @@ public class PhoneNumber {
 		this.contact = contact;
 	}
 	
+	public PhoneNumber(String phoneNumber, Contact contact) {
+		super();
+		this.phoneNumber = phoneNumber;
+		this.contact = contact;
+	}
+	
 	public long getPhone_ID() {
 		return phone_ID;
 	}

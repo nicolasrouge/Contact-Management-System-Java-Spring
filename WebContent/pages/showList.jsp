@@ -21,6 +21,7 @@
    	<body bgcolor="white">
   	<h1 align="center"><bean:message key="showlist.title"/></h1>
   	<h4 ><a href="ContactCreation.do" ><bean:message key="main.addcontact.link"/></a>
+  	<a href="createGroup.do" ><bean:message key="main.addgroup.link"/></a>
   	<a href="RecherchePage.do"><bean:message key="main.recherhce.link"/></a></h4>
 	<table class="table table-striped" >
 	<tr>
@@ -30,7 +31,7 @@
 		<td><bean:message key="showlist.email"/></td>
 		<td align="center" colspan="2">Actions</td>
 	</tr>
-	
+
 	<logic:iterate name="listContacts" id="listContactId">
 	<tr>
 		<td><bean:write name="listContactId" property="contact_ID"/></td>
@@ -45,6 +46,11 @@
 		<td><html:link action="RemoveContact.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
 		<bean:message key="contact.remove" />
 		</html:link></td>
+		
+		<td><html:link action="ShowContact.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
+		<bean:message key="contact.show" />
+		</html:link></td>
+		
 	</tr>
 	</logic:iterate>
 	

@@ -13,9 +13,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.Contact1;
 import org.lip6.struts.domain.DAOContact;
-import org.lip6.struts.domain.DAOContact1;
 
 public class ContactListAction extends Action {
 	
@@ -24,6 +22,7 @@ public class ContactListAction extends Action {
             HttpServletResponse response) throws NamingException, SQLException {
 			
         DAOContact lDAOContact = new DAOContact();
+        lDAOContact.generate();
         
         List<Contact> listContacts = new ArrayList<Contact>();
         

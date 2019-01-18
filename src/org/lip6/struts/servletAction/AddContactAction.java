@@ -20,6 +20,9 @@ import service.ContactService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import service.ContactService;
+import service.ContactServiceImpl;
+
 
 public class AddContactAction extends Action {
     
