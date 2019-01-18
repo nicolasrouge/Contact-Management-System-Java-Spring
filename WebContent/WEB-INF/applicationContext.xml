@@ -12,5 +12,15 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<bean id="serviceContact" class="service.ContactService"/>
+	
+	<aop:config>
+		<aop:aspect id="daoContactBean" ref="daoContact">
+		<aop:before
+			pointcut="execution(* send(String,String,String,String,String,String,String,String))
+					and args(firstName,lastName,email,phonenumber,street,city,zip,country)"
+			method="addContact" arg-names="firstName,lastName,email,phonenumber,street,city,zip,country"/>
+		</aop:aspect>
+	</aop:config>
+	<bean id="daoContact" class="org.lip6.struts.domain.DAOContact"/>
 
 </beans>
