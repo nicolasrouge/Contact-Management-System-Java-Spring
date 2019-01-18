@@ -6,13 +6,33 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-
+import org.hibernate.SessionFactory;
 import org.lip6.struts.domain.Contact;
 import util.HibernateUtil;
 
 public class DAOContact {
+	
+	private SessionFactory sessionFactory;
+	
+	public DAOContact()
+	{
+		
+	}
+	
+	public DAOContact(SessionFactory sessionFactory){
+		this.sessionFactory=sessionFactory;
+	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	public boolean addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) {
-		Session session = null;
+		//Session session = null;
 		boolean res = false;
 		
 		// creation d'un contact et son insertion dans la BD
@@ -41,19 +61,22 @@ public class DAOContact {
 		
 		try {
 			
+			sessionFactory.getCurrentSession().save(newaddress);
+			sessionFactory.getCurrentSession().save(newcontact);
+			sessionFactory.getCurrentSession().save(newphone);
 			// utilisation de la classe utilitaire HibernateUtil
 			// qui applique le pattern singleton et
 			// qui assure que SessionFactory ne sera instanciee qu'une seule
 			// fois
 
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			//session = HibernateUtil.getSessionFactory().getCurrentSession();
 
 			// mettre les actions entre une transaction
-			org.hibernate.Transaction tx = session.beginTransaction();
+			//org.hibernate.Transaction tx = session.beginTransaction();
 			
-			session.save(newaddress);
-			session.save(newcontact);
-			session.save(newphone);
+			//session.save(newaddress);
+			//session.save(newcontact);
+			//session.save(newphone);
 			//session.save(groupe);
 			//session.save(entreprise);
 			
@@ -62,9 +85,9 @@ public class DAOContact {
 			// et sans faire un save à nouveau
 			//contact.setNom("TOTOTOTO");
 
-			System.out.println("before Commit instruction");
+			//System.out.println("before Commit instruction");
 			// Commiter la transaction sinon rien ne se passe
-			tx.commit();
+			//tx.commit();
 			
 			//Ligne nouvelle à intégrer une fois Spring AOP intégré
 			//sessionFactory.getCurrentSession().save(contact);
