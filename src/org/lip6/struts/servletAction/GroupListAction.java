@@ -8,19 +8,15 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.DAOContact;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.lip6.struts.domain.ContactGroup;
 
 import service.ContactService;
 
-public class ContactListAction extends Action {
+public class GroupListAction extends Action {
 	
     public ActionForward execute(ActionMapping mapping,
             ActionForm form, HttpServletRequest request,
@@ -28,18 +24,17 @@ public class ContactListAction extends Action {
     	
         ContactService lContactSerive = new ContactService();
         
-        DAOContact dao = new DAOContact();
-        dao.generate();
+        List<ContactGroup> listGroups = new ArrayList<ContactGroup>();
         
-        List<Contact> listContacts = new ArrayList<Contact>();
+        listGroups = lContactSerive.getListGroup();
         
-        listContacts = lContactSerive.getListContact();
-        
-    	request.setAttribute("listContacts", listContacts);
-    	if(listContacts.isEmpty()) {
-            return mapping.findForward("displaylist");
+    	request.setAttribute("listGroups", listGroups);
+    	
+    	if(listGroups.isEmpty()) {
+    		return mapping.findForward("displaygrouplist");
         }
     	else
-    		return mapping.findForward("displaylist");
+    		return mapping.findForward("displaygrouplist");
     	}
+    
 }

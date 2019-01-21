@@ -22,7 +22,8 @@
   	<h1 align="center"><bean:message key="showlist.title"/></h1>
   	<h4 ><a href="ContactCreation.do" ><bean:message key="main.addcontact.link"/></a>
   	<a href="createGroup.do" ><bean:message key="main.addgroup.link"/></a>
-  	<a href="RecherchePage.do"><bean:message key="main.recherhce.link"/></a></h4>
+  	<a href="RecherchePage.do"><bean:message key="main.recherhce.link"/></a>
+  	<a href="GroupList.do"><bean:message key="main.list.group.link"/></a></h4><br>
 	<table class="table table-striped" >
 	<tr>
 		<td><bean:message key="showlist.id"/></td>

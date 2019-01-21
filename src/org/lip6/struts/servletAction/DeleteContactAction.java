@@ -10,8 +10,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.DeleteContactValidationForm;
-import org.lip6.struts.domain.Contact1;
-import org.lip6.struts.domain.DAOContact1;
+import org.lip6.struts.domain.Contact;
+import org.lip6.struts.domain.DAOContact;
  
  
 public class DeleteContactAction extends Action {
@@ -25,11 +25,11 @@ public class DeleteContactAction extends Action {
     final long id = lForm.getId();
      
     // delete a Contact
-            final DAOContact1 lDAOContact = new DAOContact1();
-            final int lError = lDAOContact.deleteContact(id);
+            final DAOContact lDAOContact = new DAOContact();
+            final boolean lError = lDAOContact.deleteContact(id);
             
-            if(lError >0 ) {
-                List<Contact1> listContacts = new ArrayList<Contact1>();
+     if(lError == true ) {
+                List<Contact> listContacts = new ArrayList<Contact>();
                 listContacts = lDAOContact.getListContacts();
             	pRequest.setAttribute("listContacts", listContacts);
                 

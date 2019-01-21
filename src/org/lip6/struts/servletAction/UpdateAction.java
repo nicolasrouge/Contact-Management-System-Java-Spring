@@ -13,8 +13,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.UpdateContactValidationForm;
+import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.Contact1;
 import org.lip6.struts.domain.DAOContact1;
+
+import service.ContactService;
 
 public class UpdateAction extends Action {
     public ActionForward execute(
@@ -26,17 +29,26 @@ public class UpdateAction extends Action {
     	UpdateContactValidationForm updateForm = (UpdateContactValidationForm) form;
     	
     	long id = updateForm.getId();
-    	String email = updateForm.getEmail();
-    	String lastName = updateForm.getLastName();
-    	String firstName = updateForm.getFirstName();
+        final String nom = updateForm.getFirstName();
+        final String prenom = updateForm.getLastName();
+        final String mail = updateForm.getEmail();
+        final String phonenumber = updateForm.getPhoneNumber();
+        final String street = updateForm.getStreet();
+        final String city = updateForm.getCity();
+        final String zip = updateForm.getZip();
+        final String country = updateForm.getCountry();
 		
-    	DAOContact1 lDAOContact = new DAOContact1();
-    	     
-    	lDAOContact.updateContact(id,firstName, lastName, email);
-    
- 
-        List<Contact1> listContacts = new ArrayList<Contact1>();
-        listContacts = lDAOContact.getListContacts();
+    	ContactService lContactService = new ContactService();
+    	
+    	try {
+			lContactService.updateContact(id, nom,prenom,mail,phonenumber,street,city,zip,country);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        List<Contact> listContacts = new ArrayList<Contact>();
+        listContacts = (List<Contact>) lContactService.getListContact();
     	request.setAttribute("listContacts", listContacts);
     
     	
