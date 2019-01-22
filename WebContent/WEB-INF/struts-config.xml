@@ -98,6 +98,14 @@
 			<forward name="error" path="/pages/error.jsp" />
 	</action>
     
+        <action 
+    		path="/ShowGroup" 
+    		type="org.lip6.struts.servletAction.ShowGroupAction"
+			scope="request">
+			<forward name="displaylist" path="/pages/showGroup.jsp" />
+			<forward name="displaylist" path="/pages/showGroup.jsp" />
+	</action>
+    
         <action path="/Search" 
 				type="org.lip6.struts.servletAction.SearchAction"
 				name="SearchValidationForm" scope="request" 

@@ -2,15 +2,22 @@ package org.lip6.struts.domain;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.lip6.struts.domain.Contact;
+
+import com.sun.javafx.fxml.expression.Expression;
+
 import util.HibernateUtil;
 
 public class DAOContact {
@@ -285,13 +292,15 @@ public class DAOContact {
 	
 	public boolean addContactToGroup(Long idContact, Long idGroup) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-
+		System.out.println("DAO - Ajoute du contact : " + idContact + "dans le groupe : " + idGroup);
 		try {
 			ContactGroup group = (ContactGroup) session.get(ContactGroup.class, idGroup);
 			Contact contact = (Contact) session.get(Contact.class, idContact);
+			System.out.println("DAO - le contact : " + contact.getNom() );
+			System.out.println("DAO - le groupe  : " + group.getGroupName());
 			
 			if(group.getContacts()== null)
-				group.setContact(contact);
+				group.setContacts(new HashSet<Contact>());
 			group.getContacts().add(contact);
 			
 			
@@ -299,12 +308,72 @@ public class DAOContact {
 				contact.setGroups(new HashSet<ContactGroup>());
 			contact.getGroups().add(group);
 			
+			org.hibernate.Transaction tx = session.beginTransaction();
+
 			session.saveOrUpdate(group);
+
+			tx.commit();
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			return false;
 		}
 }
+	/*
+	//on récupère les contacts appartenant à un groupe
+	public List<Contact> getGroupContacts(Long idGroupContact) {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			//On récupère le groupe
+			ContactGroup group = (ContactGroup) session.get(ContactGroup.class, idGroupContact);
+			System.out.println("DAO - GETGROUPCONTACTS - we want group : " + group.getGroupName());
+			
+			//On récupère les contacts du groupe
+			Criteria criteria = session.createCriteria(Contact.class);
+			criteria.createCriteria("groups");
+			criteria.add(Restrictions.like("group_ID", idGroupContact));
+			
+			criteria.where(root.join(Profile_.categories).in(categories))
+			
+			System.out.println("DAO - GETGROUPCONTACTS - we want contacts list with size : " + criteria.list().size());
+			
+			return criteria.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}*/
 	
+
+	public List<Contact> getGroupContacts(Long idGroupContact) {
+		List<Contact> lesContacts = new ArrayList<Contact>();
+		Long a = (long) 1;
+		System.out.println("Appel de la méthode -------------------------------------------------------------------------------- ");
+		addContactToGroup(a, idGroupContact);
+
+		try {
+			
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			//StringBuffer requestS = new StringBuffer();
+			//requestS.append("select c from Contact as c join c.groups as g where g.group_ID = ?");
+			Query q = session.createQuery("select c from Contact as c join c.groups as g where g.group_ID = :id");
+			q.setParameter("id", idGroupContact);
+			
+			List<Contact> list = q.list();
+			
+			for(Contact contact : list) {
+				Contact c = new Contact(contact);
+				c.setContact_ID(contact.getContact_ID());
+				lesContacts.add(c);
+			}
+			System.out.println("DAO - GETGROUPCONTACTS - we want contacts list with size : " + q.list().size());
+			
+			session.close();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lesContacts;
+	}
 }

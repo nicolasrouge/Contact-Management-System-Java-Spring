@@ -26,4 +26,6 @@ public interface IContactService {
 	public List<Contact> searchContact(String keyword);
 	
 	public List<ContactGroup> getListGroup();
+	
+	public List<Contact> getGroupContacts(Long idGroupContact);
 }

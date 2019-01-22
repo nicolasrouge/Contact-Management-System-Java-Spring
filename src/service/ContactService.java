@@ -57,4 +57,9 @@ public class ContactService implements IContactService {
 	public List<ContactGroup> getListGroup() {
 		return (daocontact= new DAOContact()).getListGroup();
 	}
+
+	@Override
+	public List<Contact> getGroupContacts(Long idGroupContact) {
+		return (daocontact= new DAOContact()).getGroupContacts(idGroupContact);
+	}
 }
