@@ -227,15 +227,17 @@ public class DAOContact {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			StringBuffer requestS = new StringBuffer();
-			requestS.append("select group from ContactGroup group");
+			requestS.append("select contactGroup from ContactGroup contactGroup");
+			System.out.println("DAO GROUP request"+requestS.toString());
 			Query request = session.createQuery(requestS.toString());
 			
-			@SuppressWarnings("unchecked")
 			List<ContactGroup> list = request.list();
 			for(ContactGroup group : list) {
-				ContactGroup groupe = new ContactGroup(group);
+				ContactGroup groupe = new ContactGroup();
 				groupe.setGroup_ID(group.getGroup_ID());
+				groupe.setGroupName(group.getGroupName());
 				lesGroupes.add(groupe);
+				System.out.println("DAO GROUP "+group.getGroupName());
 			}
 			
 			session.close();
