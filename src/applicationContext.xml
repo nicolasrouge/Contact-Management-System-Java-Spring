@@ -23,7 +23,7 @@
 	</aop:config>
 	<bean id="daoContact" class="org.lip6.struts.domain.DAOContact"/>
 	
-	<bean id="dataSource"
+	<!--  <bean id="dataSource"
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 	destroy-method="getCatalog">
 	
@@ -56,6 +56,6 @@
 	<tx:method name="get*" read-only="true"/>
 	<tx:method name="*"/>
 	</tx:attributes>
-	</tx:advice>
+	</tx:advice> -->
 
 </beans>

@@ -43,9 +43,9 @@ public class ContactService implements IContactService {
 	}
 
 	@Override
-	public int deleteContact(int id) throws Exception {
+	public boolean deleteContact(long id) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return (daocontact= new DAOContact()).deleteContact(id);
 	}
 
 	@Override

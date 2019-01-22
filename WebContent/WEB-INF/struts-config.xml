@@ -10,7 +10,7 @@
         <form-bean name="AddGroupValidationForm" type="org.lip6.struts.actionForm.AddGroupValidationForm"/>
         <form-bean name="LoginForm" type="org.lip6.struts.actionForm.LoginForm"/>
         <form-bean name="RechercheForm" type="org.lip6.struts.actionForm.RechercheForm"/>
-        <form-bean name="UpdateValidationForm" type="org.lip6.struts.actionForm.UpdateValidationForm"/>
+        <form-bean name="UpdateContactValidationForm" type="org.lip6.struts.actionForm.UpdateContactValidationForm"/>
         <form-bean name="DeleteContactValidationForm" type="org.lip6.struts.actionForm.DeleteContactValidationForm"/>
     	<form-bean name="SearchValidationForm" type="org.lip6.struts.actionForm.SearchValidationForm"/>
     </form-beans>
@@ -61,12 +61,20 @@
 		<forward name="error" path="/pages/error.jsp" />
 	</action>
 	
+	<action
+		path="/GroupList"
+		type="org.lip6.struts.servletAction.GroupListAction">
+		<forward name="displaygrouplist" path="/pages/showGroupList.jsp"/>
+		<forward name="error" path="/pages/error.jsp" />
+	</action>
+	
     <action path="/UpdateContact"
     			type="org.lip6.struts.servletAction.UpdateAction"
-    			name="UpdateValidationForm"
+    			name="UpdateContactValidationForm"
     			input="/pages/updateContact.jsp"
      			scope="request">
      			
+        	<forward name="displaylist" path="/pages/showList.jsp" />
         	<forward name="displaylist" path="/pages/showList.jsp" />
         	<forward name="error" path="/pages/error.jsp" />
     </action>

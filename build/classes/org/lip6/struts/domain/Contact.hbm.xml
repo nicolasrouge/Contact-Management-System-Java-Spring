@@ -28,7 +28,7 @@
 		<many-to-one name="address" column="address_ID" unique="true" not-null="true"/>
 
 		<!-- pour un contact on a 0 ou n numéros -->
-		<set name="phones" inverse="true">
+		<set name="phones" inverse="true" cascade="all">
 			<key column="ID_CONTACT"/>
 			<one-to-many class="PhoneNumber" />
 		</set>

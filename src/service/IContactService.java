@@ -19,7 +19,7 @@ public interface IContactService {
 	
 	public Contact displayContact(int idcontact);
 	
-	public int deleteContact(int id) throws Exception;
+	public boolean deleteContact(long id) throws Exception;
 	
 	public List<Contact> searchContact(String keyword);
 }
