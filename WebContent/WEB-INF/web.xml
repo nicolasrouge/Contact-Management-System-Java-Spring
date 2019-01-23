@@ -43,4 +43,14 @@
     <servlet-name>ShowGroupAction</servlet-name>
     <url-pattern>/ShowGroupAction</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddContactInGroupAction</display-name>
+    <servlet-name>AddContactInGroupAction</servlet-name>
+    <servlet-class>org.lip6.struts.servletAction.AddContactInGroupAction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddContactInGroupAction</servlet-name>
+    <url-pattern>/AddContactInGroupAction</url-pattern>
+  </servlet-mapping>
 </web-app>

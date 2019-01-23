@@ -347,9 +347,9 @@ public class DAOContact {
 
 	public List<Contact> getGroupContacts(Long idGroupContact) {
 		List<Contact> lesContacts = new ArrayList<Contact>();
-		Long a = (long) 1;
+		//Long a = (long) 1;
 		System.out.println("Appel de la méthode -------------------------------------------------------------------------------- ");
-		addContactToGroup(a, idGroupContact);
+		//addContactToGroup(a, idGroupContact);
 
 		try {
 			
@@ -358,6 +358,37 @@ public class DAOContact {
 			//requestS.append("select c from Contact as c join c.groups as g where g.group_ID = ?");
 			Query q = session.createQuery("select c from Contact as c join c.groups as g where g.group_ID = :id");
 			q.setParameter("id", idGroupContact);
+			
+			List<Contact> list = q.list();
+			
+			for(Contact contact : list) {
+				Contact c = new Contact(contact);
+				c.setContact_ID(contact.getContact_ID());
+				lesContacts.add(c);
+			}
+			System.out.println("DAO - GETGROUPCONTACTS - we want contacts list with size : " + q.list().size());
+			
+			session.close();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lesContacts;
+	}
+	public List<Contact> getContactsOutOfGroup(Long idGroupContact) {
+		List<Contact> lesContacts = new ArrayList<Contact>();
+		//Long a = (long) 1;
+		System.out.println("Appel de la méthode -------------------------------------------------------------------------------- ");
+		//addContactToGroup(a, idGroupContact);
+
+		try {
+			
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			//StringBuffer requestS = new StringBuffer();
+			//requestS.append("select c from Contact as c join c.groups as g where g.group_ID != ?");
+			Query q = session.createQuery("select contact from Contact contact");
+			//q.setParameter("id", idGroupContact);
 			
 			List<Contact> list = q.list();
 			

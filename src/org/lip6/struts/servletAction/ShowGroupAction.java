@@ -27,10 +27,13 @@ public class ShowGroupAction extends Action {
 	    
         
         List<Contact> listGroupContacts = new ArrayList<Contact>();
+        List<Contact> listContactsOutOfGroup = new ArrayList<Contact>();
         
     	listGroupContacts = lContactService.getGroupContacts(id);
+    	listContactsOutOfGroup = lContactService.getContactsOutOfGroup(id);
     	
     	request.setAttribute("listGroupContacts", listGroupContacts);
+    	request.setAttribute("listContactsOutOfGroup", listContactsOutOfGroup);
     	if(listGroupContacts.isEmpty()) {
             return mapping.findForward("displaylist");
         }

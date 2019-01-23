@@ -28,4 +28,8 @@ public interface IContactService {
 	public List<ContactGroup> getListGroup();
 	
 	public List<Contact> getGroupContacts(Long idGroupContact);
+	
+	public List<Contact> getContactsOutOfGroup(Long idGroupContact);
+	
+	public boolean addContactToGroup(Long idContact, Long idGroup);
 }
