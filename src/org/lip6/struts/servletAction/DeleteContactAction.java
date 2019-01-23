@@ -11,33 +11,28 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.DeleteContactValidationForm;
 import org.lip6.struts.domain.Contact;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import service.ContactService;
+import org.lip6.struts.domain.DAOContact;
  
  
 public class DeleteContactAction extends Action {
-    
+     
     public ActionForward execute(final ActionMapping pMapping,
             ActionForm pForm, final HttpServletRequest pRequest,
             final HttpServletResponse pResponse) throws Exception, Exception {
-    
+     
     final DeleteContactValidationForm lForm=(DeleteContactValidationForm)pForm;
-    
+     
     final long id = lForm.getId();
-    
+     
     // delete a Contact
-    ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
-    ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
-    		//final DAOContact lDAOContact = new DAOContact();
-            final boolean lError = lContactService.deleteContact(id);
-           
+            final DAOContact lDAOContact = new DAOContact();
+            final boolean lError = lDAOContact.deleteContact(id);
+            
      if(lError == true ) {
                 List<Contact> listContacts = new ArrayList<Contact>();
-                listContacts = lContactService.getListContact();
-                pRequest.setAttribute("listContacts", listContacts);
-               
+                listContacts = lDAOContact.getListContacts();
+            	pRequest.setAttribute("listContacts", listContacts);
+                
                 // if no exception is raised,  forward "success"
                 return pMapping.findForward("success");
             }
@@ -46,4 +41,4 @@ public class DeleteContactAction extends Action {
                 return pMapping.findForward("error");
             }
         }
-    }
+}

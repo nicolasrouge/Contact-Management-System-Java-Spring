@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -36,9 +37,9 @@ public class ContactListAction extends Action {
         
     	request.setAttribute("listContacts", listContacts);
     	if(listContacts.isEmpty()) {
-            return mapping.findForward("error");
+            return mapping.findForward("displaylist");
         }
     	else
     		return mapping.findForward("displaylist");
-    }
+    	}
 }

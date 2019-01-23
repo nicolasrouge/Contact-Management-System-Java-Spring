@@ -91,7 +91,8 @@ public class UpdateContactValidationForm extends ActionForm{
     	ContactService lContactService = new ContactService();
 			try {
 				contact = lContactService.getContact(id_contact);
-		    	//this.id  = contact.getContact_ID();
+				System.out.println("RESET RESET contact id : " + contact.getContact_ID());
+		    	this.id  = contact.getContact_ID();
 		    	this.lastName =contact.getNom();
 		    	this.firstName = contact.getNom();
 		    	this.email = contact.getMail();
@@ -105,6 +106,13 @@ public class UpdateContactValidationForm extends ActionForm{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+		/*Integer.valueOf(request.getParameter("id")));*/
+    	
+    	/*String reset = (String)request.getAttribute("myForm.reset");
+        if ((null != reset)|| ("true".equals(reset))) {
+            fullName = null;
+        }*/
     }
     
     public ActionErrors validate( 
