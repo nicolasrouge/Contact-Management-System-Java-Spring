@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import org.lip6.struts.domain.Contact;
+import org.lip6.struts.domain.ContactGroup;
 import org.lip6.struts.domain.DAOContact;
 import org.lip6.struts.domain.PhoneNumber;
 
@@ -31,21 +32,18 @@ public class ContactService implements IContactService {
 	}
 	
 	@Override
-	public String updateContact(Contact contact) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Contact displayContact(int idcontact) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean updateContact(long id, String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
+		return (daocontact= new DAOContact()).updateContact(id, firstName, lastName, email, phonenumber, street, city, zip, country);
 	}
 
 	@Override
 	public boolean deleteContact(long id) throws Exception {
-		// TODO Auto-generated method stub
 		return (daocontact= new DAOContact()).deleteContact(id);
+	}
+	
+	@Override
+	public List<ContactGroup> getListGroup() {
+		return (daocontact= new DAOContact()).getListGroup();
 	}
 
 	@Override

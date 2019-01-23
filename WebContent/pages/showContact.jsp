@@ -19,30 +19,29 @@
    </head>
 
    <body bgcolor="white">
+  	<h1 align="center"><bean:message key="look.title"/><br/></h1>
 
    <table>
-
         <tr>
-
-          <td align="center" colspan="2">
-        <font size="4">Détail du contact</font>
-     </tr>
-        <tr>
-          <td align="right">
-            <bean:message key="showlist.id" />
-          </td>
           <td align="left">
-          <td>ID : <bean:write name="infoContact" property="id"/></td>
-          <td>Rue : <bean:write name="infoContact" property="street"/></td>
-          <td>Rue : <bean:write name="infoContact" property="firstName"/></td>
-          <td>Rue : <bean:write name="infoContact" property="lastName"/></td>
-          <td>Rue : <bean:write name="infoContact" property="email"/></td>
-          <td>Rue : <bean:write name="infoContact" property="phoneNumber"/></td>
+          <td> <bean:message key="showlist.id" /> <bean:write name="infoContact" property="id"/><br/></td>
+          <td> <bean:message key="showlist.fname" /> <bean:write name="infoContact" property="firstName"/><br/></td>
+          <td> <bean:message key="showlist.lname" /> <bean:write name="infoContact" property="lastName"/><br/></td>
+          <td> <bean:message key="label.email" /> <bean:write name="infoContact" property="email"/><br/></td>
+          <td> <bean:message key="showlist.tel" /> <bean:write name="infoContact" property="phoneNumber"/><br/></td>
+          <td> <bean:message key="showlist.street" /><br/> <bean:write name="infoContact" property="street"/><br/></td>
+          <td> <bean:message key="showlist.city" /> <bean:write name="infoContact" property="city"/><br/></td>
+          <td> <bean:message key="showlist.zip" /> <bean:write name="infoContact" property="zip"/><br/></td>
+          <td> <bean:message key="showlist.country" /> <bean:write name="infoContact" property="country"/><br/></td>
           
         </tr>
 		<tr>
 
   </table>
+  
+  <h4>
+		<a href="Main.do"><bean:message key="main.redirection" /></a>
+  </h4>
    
    </body>
    

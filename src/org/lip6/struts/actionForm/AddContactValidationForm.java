@@ -20,7 +20,6 @@ public class AddContactValidationForm extends ActionForm {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	//private long id=0;   
     private String firstName=null;
     private String lastName=null;
     private String email=null;

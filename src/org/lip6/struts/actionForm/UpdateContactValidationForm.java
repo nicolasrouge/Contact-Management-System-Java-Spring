@@ -1,8 +1,5 @@
 package org.lip6.struts.actionForm;
 
-import java.sql.SQLException;
-
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.EmailValidator;
@@ -10,8 +7,9 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.lip6.struts.domain.Contact1;
-import org.lip6.struts.domain.DAOContact1;
+import org.lip6.struts.domain.Contact;
+
+import service.ContactService;
 
 
 public class UpdateContactValidationForm extends ActionForm{
@@ -86,28 +84,27 @@ public class UpdateContactValidationForm extends ActionForm{
 		this.email = email;
 	}
   
-    public void reset(ActionMapping mapping, HttpServletRequest request) {
-    	DAOContact1 daoContact = new DAOContact1();
-    	
+    public void reset(ActionMapping mapping, HttpServletRequest request) {	
     	System.out.println("UpdateValidationForm id : " + request.getParameter("id"));
-			Contact1 contact;
+    	Long id_contact =Long.valueOf(request.getParameter("id"));
+		Contact contact;
+    	ContactService lContactService = new ContactService();
 			try {
-				contact = daoContact.displayContact(Integer.valueOf(request.getParameter("id")));
-		    	this.id  = contact.getId();
-		    	this.lastName =contact.getLastName();
-		    	this.firstName = contact.getFirstName();
-		    	this.email = contact.getEmail();
-			} catch (NamingException | SQLException e) {
+				contact = lContactService.getContact(id_contact);
+		    	//this.id  = contact.getContact_ID();
+		    	this.lastName =contact.getNom();
+		    	this.firstName = contact.getNom();
+		    	this.email = contact.getMail();
+		    	this.city = contact.getAddress().getCity();
+		    	this.country = contact.getAddress().getCountry();
+		    	this.street = contact.getAddress().getStreet();
+		    	this.zip = contact.getAddress().getZip();
+		    	this.phoneNumber = "0733333333";
+		    	
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-		/*Integer.valueOf(request.getParameter("id")));*/
-    	
-    	/*String reset = (String)request.getAttribute("myForm.reset");
-        if ((null != reset)|| ("true".equals(reset))) {
-            fullName = null;
-        }*/
     }
     
     public ActionErrors validate( 
