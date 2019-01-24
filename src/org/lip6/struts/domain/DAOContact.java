@@ -63,12 +63,14 @@ public class DAOContact {
 	public Contact getContact(long id) {
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
-		      session.beginTransaction();
-		      //get contact from session
-		      Contact c = (Contact) session.load(Contact.class, id);
-		      //Let's verify the entity name
-		      System.out.println(session.getEntityName(c));
-		      session.getTransaction().commit();
+			session.beginTransaction();
+			
+			//get contact from session
+			Contact c = (Contact) session.get(Contact.class, id);
+			
+			//Let's verify the entity name
+			System.out.println(session.getEntityName(c));
+			session.getTransaction().commit();
 			return c;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -95,19 +97,17 @@ public class DAOContact {
 	}
 	
 	public boolean addGroup(String nomGroup) {
-		Session session = null;
-		ContactGroup group = new ContactGroup();
-
-		group.setGroup_ID(1);
-		group.setGroupName(nomGroup);
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
-
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			ContactGroup group = new ContactGroup();
+			group.setGroup_ID(1);
+			group.setGroupName(nomGroup);
+			
 			org.hibernate.Transaction tx = session.beginTransaction();
 			session.save(group);
 			tx.commit();
 
-			System.out.println("Done");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -156,7 +156,6 @@ public class DAOContact {
 				groupe.setGroupName(group.getGroupName());
 				lesGroupes.add(groupe);
 			}
-			session.close();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}catch(Exception e) {
@@ -169,14 +168,13 @@ public class DAOContact {
     	boolean res = false;
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
 
-			//Contact contact = (Contact) sessionFactory.getCurrentSession().get(Contact.class, id);
 			Contact contact = (Contact) session.get(Contact.class, id);
 			System.out.println("DELETE :" + contact.getMail());
+			
+			session.beginTransaction();
 			session.delete(contact);
 			session.getTransaction().commit();
-			//sessionFactory.getCurrentSession().delete(contact);
 			res = true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -187,7 +185,6 @@ public class DAOContact {
 	public boolean updateContact(long id, String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country){
 	    try {
 	    	Session session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
 			
 			Contact contact = (Contact) session.get(Contact.class, id);
 			System.out.println("UPDATE :" + contact.getMail());
@@ -199,11 +196,15 @@ public class DAOContact {
 			contact.getAddress().setCountry(country);
 			contact.getAddress().setStreet(street);
 			contact.getAddress().setZip(zip);
+			
+			@SuppressWarnings("rawtypes")
 			Iterator it = contact.getPhones().iterator();
 			   while(it.hasNext()) {
 				      PhoneNumber obj = (PhoneNumber)it.next();
 				      obj.setPhoneNumber(phonenumber);
 				    }
+			   
+			session.beginTransaction();
 			session.update(contact);
 			session.getTransaction().commit();
 			session.close();
@@ -260,22 +261,24 @@ public class DAOContact {
 	}
 
 	public boolean addContactToGroup(Long idContact, Long idGroup) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			
 			ContactGroup group = (ContactGroup) session.get(ContactGroup.class, idGroup);
 			Contact contact = (Contact) session.get(Contact.class, idContact);
 			
 			if(group.getContacts()== null)
 				group.setContacts(new HashSet<Contact>());
 			group.getContacts().add(contact);
+			
 			if (contact.getGroups() == null)
 				contact.setGroups(new HashSet<ContactGroup>());
 			contact.getGroups().add(group);
 			
-			org.hibernate.Transaction tx = session.beginTransaction();
+			session.beginTransaction();
 			session.saveOrUpdate(group);
-
-			tx.commit();
+			session.getTransaction().commit();
+			
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -288,6 +291,12 @@ public class DAOContact {
 
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			/* requete from stackoverflow
+			 * avec Hql on a besoin des alias
+			 * createQuery("SELECT p FROM Product p JOIN p.categories c WHERE c.id = :idCategory");
+			 * query.setParameter("idCategory", category.getId());
+			 * */
 			
 			//HQL parameter request
 			Query q = session.createQuery("select contact from Contact as contact join contact.groups as group where group.group_ID = :id");
