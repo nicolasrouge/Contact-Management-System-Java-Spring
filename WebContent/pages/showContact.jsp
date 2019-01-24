@@ -27,10 +27,10 @@
           <td> <bean:message key="showlist.id" /> : <bean:write name="infoContact" property="id"/><br/></td> 
           </tr>
           <tr>
-          <td> <bean:message key="showlist.fname" /> : <bean:write name="infoContact" property="firstName"/><br/></td>
+          <td> <bean:message key="showlist.fname" /> : <bean:write name="infoContact" property="firstname"/><br/></td>
                     </tr>
           <tr>
-          <td> <bean:message key="showlist.lname" /> : <bean:write name="infoContact" property="lastName"/><br/></td>
+          <td> <bean:message key="showlist.lname" /> : <bean:write name="infoContact" property="lastname"/><br/></td>
                     </tr>
           <tr>
           <td> <bean:message key="label.email" /> : <bean:write name="infoContact" property="email"/><br/></td>

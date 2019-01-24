@@ -30,10 +30,10 @@
 
 	<logic:iterate name="listGroups" id="listGroupId">
 	<tr>
-		<td><bean:write name="listGroupId" property="group_ID"/></td>
+		<td><bean:write name="listGroupId" property="id_group"/></td>
 		<td><bean:write name="listGroupId" property="groupName"/></td>
 		
-		<td><html:link action="ShowGroup.do" paramId="id" paramName="listGroupId" paramProperty="group_ID">
+		<td><html:link action="ShowGroup.do" paramId="id" paramName="listGroupId" paramProperty="id_group">
 		<bean:message key="group.show" />
 		</html:link></td>
 		

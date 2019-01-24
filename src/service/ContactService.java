@@ -12,8 +12,8 @@ public class ContactService implements IContactService {
 	private DAOContact daocontact;
 	
 	@Override
-	public boolean createContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
-		return (daocontact= new DAOContact()).addContact(firstName,lastName,email,phonenumber,street,city,zip,country);
+	public boolean createContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
+		return (daocontact= new DAOContact()).addContact(firstname,lastname,email,phonenumber,street,city,zip,country);
 	}
 
 	@Override
@@ -32,8 +32,8 @@ public class ContactService implements IContactService {
 	}
 	
 	@Override
-	public boolean updateContact(long id, String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
-		return (daocontact= new DAOContact()).updateContact(id,firstName,lastName,email,phonenumber,street,city,zip,country);
+	public boolean updateContact(long id, String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
+		return (daocontact= new DAOContact()).updateContact(id,firstname,lastname,email,phonenumber,street,city,zip,country);
 	}
 
 	@Override

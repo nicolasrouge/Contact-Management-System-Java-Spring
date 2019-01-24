@@ -22,8 +22,8 @@ public class AddContactAction extends Action {
     public ActionForward execute(final ActionMapping pMapping, ActionForm pForm, final HttpServletRequest pRequest, final HttpServletResponse pResponse) throws Exception {
     	final AddContactValidationForm lForm=(AddContactValidationForm)pForm;
         
-        final String nom = lForm.getFirstName();
-        final String prenom = lForm.getLastName();
+        final String lastname= lForm.getFirstname();
+        final String firstname = lForm.getLastname();
         final String mail = lForm.getEmail();
         final String phonenumber = lForm.getPhonenumber();
         final String street = lForm.getStreet();
@@ -34,7 +34,7 @@ public class AddContactAction extends Action {
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
        
-        lContactService.createContact(nom,prenom,mail,phonenumber,street,city,zip,country);
+        lContactService.createContact(lastname,firstname,mail,phonenumber,street,city,zip,country);
 
         List<Contact> listContacts = new ArrayList<Contact>();
         listContacts = (List<Contact>) lContactService.getListContact();

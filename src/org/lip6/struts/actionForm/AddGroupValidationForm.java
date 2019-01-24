@@ -43,7 +43,7 @@ public class AddGroupValidationForm extends ActionForm {
         listContacts = (List<Contact>) daoContact.getListContacts();
 
         if( getGroupName()== null || getGroupName().length() < 1 ) {
-        	errors.add("firstName",new ActionMessage("creation.fn.error.required"));
+        	errors.add("firstname",new ActionMessage("creation.fn.error.required"));
         }
         return errors;
 	}

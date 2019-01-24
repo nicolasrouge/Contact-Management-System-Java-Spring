@@ -2,7 +2,7 @@ package org.lip6.struts.domain;
 
 public class PhoneNumber {
 	
-	private long phone_ID;
+	private long id_phone;
 	private String phoneNumber;
 	private Contact contact;
 	
@@ -10,9 +10,9 @@ public class PhoneNumber {
 		super();
 	}
 	
-	public PhoneNumber(long phone_ID, String phoneNumber, Contact contact) {
+	public PhoneNumber(long id_phone, String phoneNumber, Contact contact) {
 		super();
-		this.phone_ID = phone_ID;
+		this.id_phone = id_phone;
 		this.phoneNumber = phoneNumber;
 		this.contact = contact;
 	}
@@ -23,11 +23,11 @@ public class PhoneNumber {
 		this.contact = contact;
 	}
 	
-	public long getPhone_ID() {
-		return phone_ID;
+	public long getId_phone() {
+		return id_phone;
 	}
-	public void setPhone_ID(long phone_ID) {
-		this.phone_ID = phone_ID;
+	public void setId_phone(long id_phone) {
+		this.id_phone = id_phone;
 	}
 	public String getPhoneNumber() {
 		return phoneNumber;

@@ -1,7 +1,7 @@
 package org.lip6.struts.domain;
 
 public class Address {
-	private long address_ID;
+	private long id_address;
 	private String street;
 	private String city;
 	private String zip;
@@ -10,9 +10,9 @@ public class Address {
 	public Address() {
 		super();
 	}
-	public Address(long address_ID, String street, String city, String zip, String country) {
+	public Address(long id_address, String street, String city, String zip, String country) {
 		super();
-		this.address_ID = address_ID;
+		this.id_address = id_address;
 		this.street = street;
 		this.city = city;
 		this.zip = zip;
@@ -25,11 +25,12 @@ public class Address {
 		this.zip = zip;
 		this.country = country;
 	}
-	public long getAddress_ID() {
-		return address_ID;
+	
+	public long getId_address() {
+		return id_address;
 	}
-	public void setAddress_ID(long address_ID) {
-		this.address_ID = address_ID;
+	public void setId_address(long id_address) {
+		this.id_address = id_address;
 	}
 	public String getStreet() {
 		return street;

@@ -46,8 +46,8 @@
             <bean:message key="showlist.fname" />
           </td>
           <td align="left">
-            <html:text property="firstName" size="30" maxlength="30"/>
-            <html:errors property="firstName" />
+            <html:text property="firstname" size="30" maxlength="30"/>
+            <html:errors property="firstname" />
 
           </td>
         </tr>
@@ -56,8 +56,8 @@
             <bean:message key="showlist.lname" />
           </td>
           <td align="left">
-            <html:text property="lastName" size="30" maxlength="30"/>
-            <html:errors property="lastName" />
+            <html:text property="lastname" size="30" maxlength="30"/>
+            <html:errors property="lastname" />
             
           </td>
         </tr>

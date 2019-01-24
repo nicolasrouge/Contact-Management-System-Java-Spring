@@ -29,9 +29,9 @@ public class ShowContactAction extends Action {
 	     
     	Contact contact = lContactService.getContact(id);
 		lForm.setId(id);
-		lForm.setFirstName(contact.getPrenom());
-		lForm.setLastName(contact.getNom());
-		lForm.setEmail(contact.getMail());
+		lForm.setFirstname(contact.getFirstname());
+		lForm.setLastname(contact.getLastname());
+		lForm.setEmail(contact.getEmail());
 		List<PhoneNumber> phones;
 		phones = lContactService.getPhones(id);
 		lForm.setPhoneNumber(phones.get(0).getPhoneNumber());

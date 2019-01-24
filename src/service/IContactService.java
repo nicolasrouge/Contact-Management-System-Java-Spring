@@ -9,7 +9,7 @@ import org.lip6.struts.domain.PhoneNumber;
 
 public interface IContactService {
 
-	public boolean createContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception;
+	public boolean createContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception;
 	
 	public List<Contact> getListContact();
 	
@@ -17,7 +17,7 @@ public interface IContactService {
 	
 	public List<PhoneNumber> getPhones(long id);
 	
-	public boolean updateContact(long id, String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception;
+	public boolean updateContact(long id, String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception;
 	
 	public Contact displayContact(int idcontact);
 	

@@ -34,13 +34,13 @@ public class DAOContact {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public boolean addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) {
+	public boolean addContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) {
 		Session session = null;
 		boolean res = false;
 		Contact newcontact = new Contact();
-		newcontact.setPrenom(lastName);
-		newcontact.setNom(firstName);
-		newcontact.setMail(email);
+		newcontact.setFirstname(lastname);
+		newcontact.setLastname(firstname);
+		newcontact.setEmail(email);
 		Address newaddress = new Address(1,street,city,zip,country);
 		newcontact.setAddress(newaddress);
 		PhoneNumber newphone = new PhoneNumber();
@@ -101,7 +101,7 @@ public class DAOContact {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			ContactGroup group = new ContactGroup();
-			group.setGroup_ID(1);
+			group.setId_group(1);
 			group.setGroupName(nomGroup);
 			
 			org.hibernate.Transaction tx = session.beginTransaction();
@@ -127,7 +127,7 @@ public class DAOContact {
 			
 			for(Contact contact : list) {
 				Contact c = new Contact(contact);
-				c.setContact_ID(contact.getContact_ID());
+				c.setId_contact(contact.getId_contact());
 				lesContacts.add(c);
 			}
 			session.close();
@@ -152,7 +152,7 @@ public class DAOContact {
 			
 			for(ContactGroup group : list) {
 				ContactGroup groupe = new ContactGroup();
-				groupe.setGroup_ID(group.getGroup_ID());
+				groupe.setId_group(group.getId_group());
 				groupe.setGroupName(group.getGroupName());
 				lesGroupes.add(groupe);
 			}
@@ -170,7 +170,7 @@ public class DAOContact {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
 			Contact contact = (Contact) session.get(Contact.class, id);
-			System.out.println("DELETE :" + contact.getMail());
+			System.out.println("DELETE :" + contact.getEmail());
 			
 			session.beginTransaction();
 			session.delete(contact);
@@ -182,16 +182,16 @@ public class DAOContact {
 		return res;
 	}
 	
-	public boolean updateContact(long id, String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country){
+	public boolean updateContact(long id, String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country){
 	    try {
 	    	Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			Contact contact = (Contact) session.get(Contact.class, id);
-			System.out.println("UPDATE :" + contact.getMail());
+			System.out.println("UPDATE :" + contact.getEmail());
 			
-			contact.setMail(email);
-			contact.setNom(lastName);
-			contact.setPrenom(firstName);
+			contact.setEmail(email);
+			contact.setLastname(lastname);
+			contact.setFirstname(firstname);
 			contact.getAddress().setCity(city);
 			contact.getAddress().setCountry(country);
 			contact.getAddress().setStreet(street);
@@ -232,11 +232,11 @@ public class DAOContact {
 			while (rsContact.next()) {
 
 				final Long id = rsContact.getLong("ID_CONTACT");
-				final String lastName = rsContact.getString("LASTNAME");
-				final String firstName = rsContact.getString("FIRSTNAME");
+				final String lastname = rsContact.getString("LASTNAME");
+				final String firstname = rsContact.getString("FIRSTNAME");
 				final String email = rsContact.getString("EMAIL");
 
-				contacts.add(new Contact1(id, lastName, firstName, email));
+				contacts.add(new Contact1(id, lastname, firstname, email));
 			}
 		} catch (SQLException e) {
 
@@ -299,7 +299,7 @@ public class DAOContact {
 			 * */
 			
 			//HQL parameter request
-			Query q = session.createQuery("select contact from Contact as contact join contact.groups as group where group.group_ID = :id");
+			Query q = session.createQuery("select contact from Contact as contact join contact.groups as group where group.id_group = :id");
 			q.setParameter("id", idGroupContact);
 			
 			@SuppressWarnings("unchecked")
@@ -307,7 +307,7 @@ public class DAOContact {
 			
 			for(Contact contact : list) {
 				Contact c = new Contact(contact);
-				c.setContact_ID(contact.getContact_ID());
+				c.setId_contact(contact.getId_contact());
 				lesContacts.add(c);
 			}			
 			session.close();
@@ -330,7 +330,7 @@ public class DAOContact {
 			
 			for(Contact contact : list) {
 				Contact c = new Contact(contact);
-				c.setContact_ID(contact.getContact_ID());
+				c.setId_contact(contact.getId_contact());
 				lesContacts.add(c);
 			}			
 			session.close();

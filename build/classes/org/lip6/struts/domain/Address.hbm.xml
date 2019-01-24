@@ -6,7 +6,7 @@
 <hibernate-mapping package="org.lip6.struts.domain">
   <class name="Address" table="ADDRESS">
   	 
-  	 <id name="address_ID" type="long" column="ID_ADDRESS" >
+  	 <id name="id_address" type="long" column="ID_ADDRESS" >
    		<generator class="increment"/>
   	 </id>
   	 

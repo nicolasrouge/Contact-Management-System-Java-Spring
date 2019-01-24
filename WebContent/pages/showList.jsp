@@ -35,20 +35,20 @@
 
 	<logic:iterate name="listContacts" id="listContactId">
 	<tr>
-		<td><bean:write name="listContactId" property="contact_ID"/></td>
-		<td><bean:write name="listContactId" property="prenom"/></td>
-		<td><bean:write name="listContactId" property="nom"/></td>
-		<td><bean:write name="listContactId" property="mail"/></td>
+		<td><bean:write name="listContactId" property="id_contact"/></td>
+		<td><bean:write name="listContactId" property="firstname"/></td>
+		<td><bean:write name="listContactId" property="lastname"/></td>
+		<td><bean:write name="listContactId" property="email"/></td>
 		
-		<td><html:link action="UpdatePage.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
+		<td><html:link action="UpdatePage.do" paramId="id" paramName="listContactId" paramProperty="id_contact">
 		<bean:message key="contact.update" />
 		</html:link></td>
 		
-		<td><html:link action="RemoveContact.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
+		<td><html:link action="RemoveContact.do" paramId="id" paramName="listContactId" paramProperty="id_contact">
 		<bean:message key="contact.remove" />
 		</html:link></td>
 		
-		<td><html:link action="ShowContact.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
+		<td><html:link action="ShowContact.do" paramId="id" paramName="listContactId" paramProperty="id_contact">
 		<bean:message key="contact.show" />
 		</html:link></td>
 		

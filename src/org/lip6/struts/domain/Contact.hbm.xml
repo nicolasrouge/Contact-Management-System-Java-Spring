@@ -6,42 +6,45 @@
 
 <class name="Contact" table="CONTACT" >
 
-		<id name="contact_ID" type="long" column="contact_ID">
+		<id name="id_contact" type="long" column="id_contact">
 			<generator class="increment" />
 		</id>
 		
 		<version name="version" access="field" column="VERSION"/>
 
-		<!-- name doit correspondre aux attributs de l'objet  -->
-		<property name="nom">
-			<column name="nom"></column>
+		<property name="lastname">
+			<column name="lastname"></column>
 		</property>
 
-		<property name="prenom">
-			<column name="prenom"></column>
+		<property name="firstname">
+			<column name="firstname"></column>
 		</property>
 
-		<property name="mail">
-			<column name="mail"></column>
+		<property name="email">
+			<column name="email"></column>
 		</property>
   	 
-		<!-- on veut un 'one-to-one' : pour un contact on a 0 ou 1 adresse -->
-		<many-to-one name="address" column="address_ID" unique="true" not-null="true"/>
-
+		<!-- grace à unique = null, on obtient 'one-to-one' -->
+		<many-to-one name="address" 
+			column="id_address" 
+			unique="true" 
+			not-null="true"
+			class="Address"/>
+			
 		<!-- pour un contact on a 0 ou n numéros -->
 		<set name="phones" inverse="true" cascade="all">
-			<key column="ID_CONTACT"/>
+			<key column="id_contact"/>
 			<one-to-many class="PhoneNumber" />
 		</set>
 		
 		<!-- pour un contact on a 0 ou n groupes -->
 		<set name="groups" table="CONTACT_GROUP" inverse="true">
-			<key column="contact_ID"/>
-			<many-to-many class="ContactGroup" column="group_ID"/>
+			<key column="id_contact"/>
+			<many-to-many class="ContactGroup" column="id_group"/>
 		</set>
 		
 		<joined-subclass name="Entreprise" table="ENTREPRISE">
-			<key column="contact_ID"/>
+			<key column="id_contact"/>
 			<property name="num_siret" type="long" column="num_siret"/>
 		</joined-subclass>
 
