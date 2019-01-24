@@ -25,16 +25,16 @@
 		</property>
   	 
 		<!-- on veut un 'one-to-one' : pour un contact on a 0 ou 1 adresse -->
-		<many-to-one name="address" column="address_ID" unique="true" not-null="true"/>
+		<many-to-one name="address" column="address_ID" unique="true" not-null="true" lazy="false"/>
 
 		<!-- pour un contact on a 0 ou n numéros -->
-		<set name="phones" inverse="true" cascade="all">
+		<set name="phones" lazy="false" inverse="true" cascade="all">
 			<key column="ID_CONTACT"/>
 			<one-to-many class="PhoneNumber" />
 		</set>
 		
 		<!-- pour un contact on a 0 ou n groupes -->
-		<set name="groups" table="CONTACT_GROUP" inverse="true">
+		<set name="groups" table="CONTACT_GROUP" lazy="false" inverse="true">
 			<key column="contact_ID"/>
 			<many-to-many class="ContactGroup" column="group_ID"/>
 		</set>
