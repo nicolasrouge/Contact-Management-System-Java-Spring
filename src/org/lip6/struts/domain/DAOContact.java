@@ -66,6 +66,7 @@ public class DAOContact {
 	}
 	
 	public Contact getContact(long id) {
+		this.sessionFactory.getCurrentSession();
 		Contact contact = null;
 		try {  
 		      contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
