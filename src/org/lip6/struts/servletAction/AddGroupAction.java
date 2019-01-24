@@ -17,6 +17,10 @@ import org.lip6.struts.actionForm.AddGroupValidationForm;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.ContactGroup;
 import org.lip6.struts.domain.DAOContact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.ContactService;
 
 
 public class AddGroupAction extends Action {
@@ -25,11 +29,12 @@ public class AddGroupAction extends Action {
     	final AddGroupValidationForm lForm=(AddGroupValidationForm)pForm;
         
     	final String nomGroupe = lForm.getGroupName();
-        final DAOContact lDAOContact = new DAOContact();
-        
-        lDAOContact.addGroup(nomGroupe);
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
+       
+        lContactService.addGroup(nomGroupe);
         List<ContactGroup> listGroups = new ArrayList<ContactGroup>();
-        listGroups = lDAOContact.getListGroup();
+        listGroups = lContactService.getListGroup();
     	pRequest.setAttribute("listGroups", listGroups);
     	return pMapping.findForward("displaygrouplist");
     }

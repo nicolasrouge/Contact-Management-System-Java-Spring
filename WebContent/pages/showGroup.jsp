@@ -20,7 +20,7 @@
    	</head>
 	
    	<body bgcolor="white">
-  	<h1 align="center">Gérer le groupe<%out.println(request.getParameter("id"));%></h1>
+  	<h1 align="center">Gérer le groupe <%out.println(request.getParameter("id"));%></h1>
   	<h4 >
   	<a href="createGroup.do" ><bean:message key="main.addgroup.link"/></a></h4>
   	<br>
@@ -85,7 +85,7 @@
 	
 
 			<h4>
-			<html:link action="ListGroup.do" ><bean:message key="liste.contact.redirection" /></html:link>
+			<html:link action="GroupList.do" ><bean:message key="liste.contact.redirection" /></html:link>
 		</h4>
    </body>
 </html:html>

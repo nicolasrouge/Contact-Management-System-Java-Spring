@@ -12,6 +12,10 @@ import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.DeleteContactValidationForm;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.ContactService;
  
  
 public class DeleteContactAction extends Action {
@@ -25,12 +29,14 @@ public class DeleteContactAction extends Action {
     final long id = lForm.getId();
      
     // delete a Contact
-            final DAOContact lDAOContact = new DAOContact();
-            final boolean lError = lDAOContact.deleteContact(id);
+	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+    ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
+
+    final boolean lError = lContactService.deleteContact(id);
             
      if(lError == true ) {
                 List<Contact> listContacts = new ArrayList<Contact>();
-                listContacts = lDAOContact.getListContacts();
+                listContacts = lContactService.getListContact();
             	pRequest.setAttribute("listContacts", listContacts);
                 
                 // if no exception is raised,  forward "success"

@@ -26,7 +26,6 @@ public class ShowContactAction extends Action {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
-    	//DAOContact lDAOContact = new DAOContact();
 	     
     	Contact contact = lContactService.getContact(id);
 		lForm.setId(id);

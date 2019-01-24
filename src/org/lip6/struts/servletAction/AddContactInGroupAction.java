@@ -12,6 +12,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.AddContactInGroupValidationForm;
 import org.lip6.struts.domain.Contact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import service.ContactService;
 
@@ -24,8 +26,9 @@ public class AddContactInGroupAction extends Action {
     	final long idGroup = Long.parseLong(request.getParameter("id"));
     	final long idContact = Long.parseLong(request.getParameter("idContact"));
         
-        ContactService lContactService = new ContactService();
-        
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
+       
         lContactService.addContactToGroup(idContact, idGroup);
 
         List<Contact> listGroupContacts = new ArrayList<Contact>();

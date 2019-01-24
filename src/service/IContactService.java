@@ -32,4 +32,8 @@ public interface IContactService {
 	public List<Contact> getContactsOutOfGroup(Long idGroupContact);
 	
 	public boolean addContactToGroup(Long idContact, Long idGroup);
+	
+	public boolean addGroup(String nomGroup);
+	
+	public void generate();
 }

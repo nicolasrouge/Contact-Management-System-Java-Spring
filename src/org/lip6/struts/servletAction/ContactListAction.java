@@ -28,8 +28,8 @@ public class ContactListAction extends Action {
 			
     	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
-        DAOContact lDAOContact = new DAOContact();
-        lDAOContact.generate();
+
+        lContactService.generate();
         
         List<Contact> listContacts = new ArrayList<Contact>();
         

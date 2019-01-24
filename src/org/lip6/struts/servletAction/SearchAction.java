@@ -15,6 +15,10 @@ import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.SearchValidationForm;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.ContactService;
 
 
 public class SearchAction extends Action {
@@ -30,9 +34,11 @@ public class SearchAction extends Action {
 		
 		List<Contact> contacts = new ArrayList<Contact>();
 
-		DAOContact daoContact = new DAOContact();
+    	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
+        
 		try {
-			//contacts = daoContact.searchContact(word);
+			contacts = lContactService.searchContact(word);
 			pRequest.setAttribute("listContacts", contacts);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

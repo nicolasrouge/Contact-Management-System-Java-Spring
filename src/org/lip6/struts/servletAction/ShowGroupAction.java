@@ -23,7 +23,8 @@ public class ShowGroupAction extends Action {
 		
 		final long id = Long.parseLong(request.getParameter("id"));
 		
-        ContactService lContactService = new ContactService();
+    	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
 	    
         
         List<Contact> listGroupContacts = new ArrayList<Contact>();

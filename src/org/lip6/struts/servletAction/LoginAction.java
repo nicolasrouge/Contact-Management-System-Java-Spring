@@ -12,7 +12,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.LoginForm;
 import org.lip6.struts.domain.Contact;
+import org.lip6.struts.domain.ContactGroup;
 import org.lip6.struts.domain.DAOContact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.ContactService;
 
 public class LoginAction extends Action {
 
@@ -20,12 +25,12 @@ public class LoginAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         LoginForm loginForm = (LoginForm) form;
         
-        
-        DAOContact lDAOContact = new DAOContact();
+    	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
         
         List<Contact> listContacts = new ArrayList<Contact>();
         
-        //listContacts = lDAOContact.getListContacts();
+        listContacts = lContactService.getListContact();
         
     	request.setAttribute("listContacts", listContacts);
     	

@@ -13,6 +13,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.domain.ContactGroup;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import service.ContactService;
 
@@ -22,11 +24,12 @@ public class GroupListAction extends Action {
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NamingException, SQLException {
     	
-        ContactService lContactSerive = new ContactService();
+    	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
         
         List<ContactGroup> listGroups = new ArrayList<ContactGroup>();
         
-        listGroups = lContactSerive.getListGroup();
+        listGroups = lContactService.getListGroup();
         
     	request.setAttribute("listGroups", listGroups);
     	

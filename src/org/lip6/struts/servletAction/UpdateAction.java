@@ -54,14 +54,5 @@ public class UpdateAction extends Action {
     
     	
     	return mapping.findForward("displaylist");
-        /*
-    	if(rechercheForm.getContactId()==0) {
-            // if no exception is raised,  forward "success"
-            return mapping.findForward("displayList");
-        }
-        else {
-            // If any exception, return the "error" forward
-            return mapping.findForward("error");
-        }*/
     }
 }

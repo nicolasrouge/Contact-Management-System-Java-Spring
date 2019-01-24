@@ -48,12 +48,6 @@ public class ContactService implements IContactService {
 	}
 
 	@Override
-	public Contact displayContact(int idcontact) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<ContactGroup> getListGroup() {
 		return (daocontact= new DAOContact()).getListGroup();
 	}
@@ -71,5 +65,22 @@ public class ContactService implements IContactService {
 	@Override
 	public boolean addContactToGroup(Long idContact, Long i) {
 		return (daocontact= new DAOContact()).addContactToGroup(idContact, i);
+	}
+
+	@Override
+	public boolean addGroup(String nomGroup) {
+		return	(daocontact= new DAOContact()).addGroup(nomGroup);
+	}
+
+	@Override
+	public Contact displayContact(int idcontact) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void generate() {
+		(daocontact= new DAOContact()).generate();
+		
 	}
 }
