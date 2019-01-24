@@ -24,11 +24,11 @@ public class ContactListAction extends Action {
     public ActionForward execute(ActionMapping mapping,
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NamingException, SQLException {
-			
+		
     	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
-        DAOContact lDAOContact = new DAOContact();
-        lDAOContact.generate();
+        /*DAOContact lDAOContact = new DAOContact();
+        lDAOContact.generate();*/
         
         List<Contact> listContacts = new ArrayList<Contact>();
         

@@ -11,7 +11,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.DAOContact;
+
+import service.ContactService;
 
 public class AddContactValidationForm extends ActionForm {
 
@@ -93,10 +94,10 @@ public class AddContactValidationForm extends ActionForm {
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		ActionErrors errors = new ActionErrors();
 		System.out.println("ADD CONTACT VALIDATION");
-		final DAOContact daoContact = new DAOContact();
-        List<Contact> listContacts = new ArrayList<Contact>();
+		final ContactService serviceContact = new ContactService();
+		List<Contact> listContacts = new ArrayList<Contact>();
        
-        listContacts = (List<Contact>) daoContact.getListContacts();
+        listContacts = (List<Contact>) serviceContact.getListContact();
 		
         //request.setAttribute("listContacts", listContacts);
         

@@ -10,6 +10,8 @@ public interface IContactService {
 
 	public boolean createContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception;
 	
+	public boolean createGroup(String nomgroupe) throws Exception;
+	
 	public List<Contact> getListContact();
 	
 	public Contact getContact(long id);

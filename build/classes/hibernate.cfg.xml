@@ -15,7 +15,7 @@
        
          <!-- fait en sorte qu'Hibernate gere automatiquement la session -->
          <!-- Celle-ci est liée au thread local. -->
-        <property name="current_session_context_class">thread</property>
+	     <!-- <property name="current_session_context_class">thread</property> -->
        
         <!-- ici on configure le comportement lors du lancement d'hibernate -->
         <!-- valeur = update i..e si les tables de la base n'existent pas 

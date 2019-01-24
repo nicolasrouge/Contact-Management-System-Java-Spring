@@ -10,20 +10,18 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-	<bean id="serviceContact" class="service.ContactService"/>
 	
-	<aop:config>
+	<!--  <aop:config>
 		<aop:aspect id="daoContactBean" ref="daoContact">
 		<aop:before
-			pointcut="execution(* send(String,String,String,String,String,String,String,String))
+			pointcut="execution(* addcontact(String,String,String,String,String,String,String,String))
 					and args(firstName,lastName,email,phonenumber,street,city,zip,country)"
 			method="addContact" arg-names="firstName,lastName,email,phonenumber,street,city,zip,country"/>
 		</aop:aspect>
 	</aop:config>
-	<bean id="daoContact" class="org.lip6.struts.domain.DAOContact"/>
+	<bean id="daoContact" class="org.lip6.struts.domain.DAOContact"/> -->
 	
-	<!--  <bean id="dataSource"
+	<bean id="dataSource"
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 	destroy-method="getCatalog">
 	
@@ -39,23 +37,33 @@
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-	<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
-	<bean id="idDaoContact" class="org.lip6.struts.domain.DAOContact">
-	<constructor-arg>
-	<ref bean="sessionFactory"/>
-	</constructor-arg>
+	<bean id="daocontact" class="org.lip6.struts.domain.DAOContact">
+		<constructor-arg>
+			<ref bean="sessionFactory"/>
+		</constructor-arg>
 	</bean>
 	
 	<aop:config>
-	<aop:advisor pointcut="execution(* org.lip6.struts.domain.DAOContact(..))" advice-ref="txAdvice"/>
+		<aop:advisor pointcut="execution(* org.lip6.struts.domain.DAOContact.*(..))" advice-ref="txAdvice"/>
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-	<tx:attributes>
-	<tx:method name="get*" read-only="true"/>
-	<tx:method name="*"/>
-	</tx:attributes>
-	</tx:advice> -->
-
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- <bean id="dao" name="dao" class="org.lip6.struts.domain.DAOContact">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean> -->
+	
+	<bean name="serviceContact" class="service.ContactService">
+		<constructor-arg>
+			<ref bean="daocontact"/>
+		</constructor-arg>
+	</bean>
 </beans>
