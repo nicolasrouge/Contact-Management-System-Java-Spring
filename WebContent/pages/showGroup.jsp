@@ -60,7 +60,7 @@
 	
 		</table>
 		
-		<h2>Contacts hors du groupe</h2>
+		<h2>Tous les contacts</h2>
 		<table class="table table-striped" >
 	<tr>
 		<td><bean:message key="showlist.id"/></td>

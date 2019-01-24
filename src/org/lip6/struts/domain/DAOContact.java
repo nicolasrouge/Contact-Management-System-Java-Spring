@@ -101,9 +101,6 @@ public class DAOContact {
 		group.setGroup_ID(1);
 		group.setGroupName(nomGroup);
 		try {
-			// utilisation de la classe utilitaire HibernateUtil
-			// qui applique le pattern singleton et
-			// qui assure que SessionFactory ne sera instanciee qu'une seule fois
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 
 			org.hibernate.Transaction tx = session.beginTransaction();
@@ -317,7 +314,8 @@ public class DAOContact {
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			//HQL simple request
-			Query q = session.createQuery("select contact from Contact contact");
+			Query q = session.createQuery("select contact from Contact as contact");
+			
 			@SuppressWarnings("unchecked")
 			List<Contact> list = q.list();
 			

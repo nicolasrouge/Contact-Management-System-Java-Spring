@@ -12,6 +12,7 @@
 		
 		<version name="version" access="field" column="VERSION"/>
 
+		<!-- name doit correspondre aux attributs de l'objet  -->
 		<property name="nom">
 			<column name="nom"></column>
 		</property>
