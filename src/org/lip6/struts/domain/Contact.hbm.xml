@@ -29,16 +29,17 @@
 			column="id_address" 
 			unique="true" 
 			not-null="true"
-			class="Address"/>
+			lazy="false"/>
 			
 		<!-- pour un contact on a 0 ou n numéros -->
-		<set name="phones" inverse="true" cascade="all">
+		<set name="phones" inverse="true" cascade="all" lazy="false" >
 			<key column="id_contact"/>
-			<one-to-many class="PhoneNumber" />
+			<one-to-many 
+			class="PhoneNumber" />
 		</set>
 		
 		<!-- pour un contact on a 0 ou n groupes -->
-		<set name="groups" table="CONTACT_GROUP" inverse="true">
+		<set name="groups" table="CONTACT_GROUP" inverse="true" lazy="false" >
 			<key column="id_contact"/>
 			<many-to-many class="ContactGroup" column="id_group"/>
 		</set>

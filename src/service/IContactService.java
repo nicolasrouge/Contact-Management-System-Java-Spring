@@ -15,6 +15,8 @@ public interface IContactService {
 	
 	public Contact getContact(long id);
 	
+	public boolean createGroup(String nomgroupe) throws Exception;
+	
 	public List<PhoneNumber> getPhones(long id);
 	
 	public boolean updateContact(long id, String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception;

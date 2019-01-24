@@ -9,36 +9,48 @@ import org.lip6.struts.domain.PhoneNumber;
 
 public class ContactService implements IContactService {
 
-	private DAOContact daocontact;
+	private DAOContact daocontact = null;
+	
+	public ContactService(){
+
+	}
+
+	public ContactService(DAOContact daocontact) {
+		this.daocontact = daocontact;
+	}
+
+	public void setDaocontact(DAOContact daocontact) {
+		this.daocontact = daocontact;
+	}
 	
 	@Override
 	public boolean createContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
-		return (daocontact= new DAOContact()).addContact(firstname,lastname,email,phonenumber,street,city,zip,country);
+		return daocontact.addContact(firstname,lastname,email,phonenumber,street,city,zip,country);
 	}
 
 	@Override
 	public List<Contact> getListContact() {
-		return (daocontact= new DAOContact()).getListContacts();
+		return daocontact.getListContacts();
 	}
 	
 	@Override
 	public Contact getContact(long id) {
-		return (daocontact= new DAOContact()).getContact(id);
+		return daocontact.getContact(id);
 	}
 
 	@Override
 	public List<PhoneNumber> getPhones(long id) {
-		return (daocontact= new DAOContact()).getPhones(id);
+		return daocontact.getPhones(id);
 	}
 	
 	@Override
 	public boolean updateContact(long id, String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
-		return (daocontact= new DAOContact()).updateContact(id,firstname,lastname,email,phonenumber,street,city,zip,country);
+		return daocontact.updateContact(id,firstname,lastname,email,phonenumber,street,city,zip,country);
 	}
 
 	@Override
 	public boolean deleteContact(long id) throws Exception {
-		return (daocontact= new DAOContact()).deleteContact(id);
+		return daocontact.deleteContact(id);
 	}
 
 	@Override
@@ -49,27 +61,27 @@ public class ContactService implements IContactService {
 
 	@Override
 	public List<ContactGroup> getListGroup() {
-		return (daocontact= new DAOContact()).getListGroup();
+		return daocontact.getListGroup();
 	}
 
 	@Override
 	public List<Contact> getGroupContacts(Long idGroupContact) {
-		return (daocontact= new DAOContact()).getGroupContacts(idGroupContact);
+		return daocontact.getGroupContacts(idGroupContact);
 	}
 
 	@Override
 	public List<Contact> getContactsOutOfGroup(Long idGroupContact) {
-		return (daocontact= new DAOContact()).getContactsOutOfGroup(idGroupContact);
+		return daocontact.getContactsOutOfGroup(idGroupContact);
 	}
 
 	@Override
 	public boolean addContactToGroup(Long idContact, Long i) {
-		return (daocontact= new DAOContact()).addContactToGroup(idContact, i);
+		return daocontact.addContactToGroup(idContact, i);
 	}
 
 	@Override
 	public boolean addGroup(String nomGroup) {
-		return	(daocontact= new DAOContact()).addGroup(nomGroup);
+		return	daocontact.addGroup(nomGroup);
 	}
 
 	@Override
@@ -80,7 +92,12 @@ public class ContactService implements IContactService {
 
 	@Override
 	public void generate() {
-		(daocontact= new DAOContact()).generate();
+		daocontact.generate();
 		
+	}
+
+	@Override
+	public boolean createGroup(String nomgroupe) throws Exception {
+		return daocontact.addGroup(nomgroupe);
 	}
 }
