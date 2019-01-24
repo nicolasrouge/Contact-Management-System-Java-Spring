@@ -8,6 +8,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.lip6.struts.domain.Contact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import service.ContactService;
 
@@ -88,7 +90,9 @@ public class UpdateContactValidationForm extends ActionForm{
     	System.out.println("UpdateValidationForm id : " + request.getParameter("id"));
     	Long id_contact =Long.valueOf(request.getParameter("id"));
 		Contact contact;
-    	ContactService lContactService = new ContactService();
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
 			try {
 				contact = lContactService.getContact(id_contact);
 		    	//this.id  = contact.getContact_ID();

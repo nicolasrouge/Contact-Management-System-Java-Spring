@@ -66,34 +66,21 @@ public class DAOContact {
 	}
 	
 	public Contact getContact(long id) {
-		try {
-		      this.sessionFactory.getCurrentSession().beginTransaction();
-		       
-		      Contact c = (Contact) this.sessionFactory.getCurrentSession().load(Contact.class, id);
-			return c;
+		Contact contact = null;
+		try {  
+		      contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return contact;
 	}
 	
 	public List<PhoneNumber> getPhones(long id) {
-		try {
-			  //Session session = HibernateUtil.getSessionFactory().openSession();
-		      //session.beginTransaction();
-		      
+		try { 
 		      Query q = this.sessionFactory.getCurrentSession().createQuery("select pN from PhoneNumber pN where pN.id = :id");
 		      q.setParameter("id", id);
 		      @SuppressWarnings("unchecked")
 		      List<PhoneNumber> list = q.list();
-		      
-		      //Contact c = (Contact) session.load(Contact.class, id);
-		      //System.out.println("GET CONTACT" + c.getPrenom() + " --------------- ");
-		       
-		      //Let's verify the entity name
-		      //System.out.println(session.getEntityName(c));
-		       
-		      //session.getTransaction().commit();
 			return list;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -102,7 +89,6 @@ public class DAOContact {
 	}
 	
 	public boolean addGroup(String nomGroup) {
-		//Session session = null;
 		ContactGroup group = new ContactGroup();
 
 		group.setGroup_ID(1);
@@ -112,24 +98,8 @@ public class DAOContact {
 		//group.setContact(contact);
 		
 		try {
-			
-			// utilisation de la classe utilitaire HibernateUtil
-			// qui applique le pattern singleton et
-			// qui assure que SessionFactory ne sera instanciee qu'une seule fois
-			
-			//session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-			// mettre les actions entre une transaction
-			//org.hibernate.Transaction tx = session.beginTransaction();
-			
 			this.sessionFactory.getCurrentSession().save(group);
-			
-			// pour montrer qu'hibernate met à jour systematiquement la base de données
-			// et sans faire un save à nouveau
-			//contact.setNom("TOTOTOTO");
-			
-			System.out.println("before Commit instruction");
-
+	
 			System.out.println("Done");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -164,9 +134,7 @@ public class DAOContact {
 	
 	public List<ContactGroup> getListGroup(){
 		List<ContactGroup> lesGroupes = new ArrayList<ContactGroup>();
-		try {
-			//Session session = HibernateUtil.getSessionFactory().openSession();
-			
+		try {		
 			StringBuffer requestS = new StringBuffer();
 			requestS.append("select contactGroup from ContactGroup contactGroup");
 			System.out.println("DAO GROUP request"+requestS.toString());
@@ -180,8 +148,6 @@ public class DAOContact {
 				lesGroupes.add(groupe);
 				System.out.println("DAO GROUP "+group.getGroupName());
 			}
-			
-			//session.close();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}catch(Exception e) {

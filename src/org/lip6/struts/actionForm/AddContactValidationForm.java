@@ -11,6 +11,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.lip6.struts.domain.Contact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import service.ContactService;
 
@@ -94,7 +96,8 @@ public class AddContactValidationForm extends ActionForm {
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		ActionErrors errors = new ActionErrors();
 		System.out.println("ADD CONTACT VALIDATION");
-		final ContactService serviceContact = new ContactService();
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService serviceContact = (service.ContactService) context.getBean("serviceContact");
 		List<Contact> listContacts = new ArrayList<Contact>();
        
         listContacts = (List<Contact>) serviceContact.getListContact();

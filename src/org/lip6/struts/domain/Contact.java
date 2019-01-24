@@ -101,7 +101,11 @@ public class Contact {
 		this.groups = groups;
 	}
 	
-	public int getVersion(int version) {
+	public int getVersion() {
 		return version;
+	}
+	
+	public void setVersion(int version) {
+		this.version = version;
 	}
 }

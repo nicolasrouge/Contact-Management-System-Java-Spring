@@ -12,6 +12,8 @@ import org.apache.struts.action.ActionMessage;
 import org.hibernate.SessionFactory;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.DAOContact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import service.ContactService;
 
@@ -40,8 +42,11 @@ public class AddGroupValidationForm extends ActionForm {
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		ActionErrors errors = new ActionErrors();
 		System.out.println("ADD GROUP VALIDATION");
-		final ContactService serviceContact = new ContactService();
-        List<Contact> listContacts = new ArrayList<Contact>();
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService serviceContact = (service.ContactService) context.getBean("serviceContact");
+        @SuppressWarnings("unused")
+		List<Contact> listContacts = new ArrayList<Contact>();
        
         listContacts = (List<Contact>) serviceContact.getListContact();
 

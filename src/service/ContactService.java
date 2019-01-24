@@ -13,13 +13,9 @@ public class ContactService implements IContactService {
 	public ContactService(){
 		
 	}
-
+	
 	public ContactService(DAOContact daocontact) {
 		this.daocontact = daocontact;
-	}
-
-	public DAOContact getDaocontact() {
-		return daocontact;
 	}
 
 	public void setDaocontact(DAOContact daocontact) {
@@ -33,7 +29,6 @@ public class ContactService implements IContactService {
 	
 	@Override
 	public boolean createGroup(String nomgroupe) throws Exception {
-		// TODO Auto-generated method stub
 		return daocontact.addGroup(nomgroupe);
 	}
 

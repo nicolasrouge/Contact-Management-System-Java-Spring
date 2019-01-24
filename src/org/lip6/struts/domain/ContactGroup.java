@@ -9,6 +9,7 @@ public class ContactGroup {
 	private long group_ID;
 	private String groupName;
 	private Set<Contact> contacts = new HashSet<Contact>();
+	private int version;
 	
 	public ContactGroup() {
 		super();
@@ -40,5 +41,12 @@ public class ContactGroup {
 	public void setContact(Contact contact) {
 		contacts.add(contact);
 	}	
+	
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
 	
 }
