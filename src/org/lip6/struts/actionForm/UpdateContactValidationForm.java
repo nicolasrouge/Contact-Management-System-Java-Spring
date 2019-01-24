@@ -1,5 +1,9 @@
 package org.lip6.struts.actionForm;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.EmailValidator;
@@ -8,6 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.lip6.struts.domain.Contact;
+import org.lip6.struts.domain.PhoneNumber;
 
 import service.ContactService;
 
@@ -100,7 +105,11 @@ public class UpdateContactValidationForm extends ActionForm{
 		    	this.country = contact.getAddress().getCountry();
 		    	this.street = contact.getAddress().getStreet();
 		    	this.zip = contact.getAddress().getZip();
-		    	this.phoneNumber = "0733333333";
+		    	
+		    	Iterator<PhoneNumber> iter = contact.getPhones().iterator();
+		    	PhoneNumber phoneNumber = iter.next();
+		    	
+		    	this.phoneNumber = phoneNumber.getPhoneNumber();
 		    	
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

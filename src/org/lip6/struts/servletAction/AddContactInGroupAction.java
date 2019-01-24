@@ -22,16 +22,11 @@ public class AddContactInGroupAction extends Action {
     	final AddContactInGroupValidationForm lForm=(AddContactInGroupValidationForm)pForm;
        
     	final long idGroup = Long.parseLong(request.getParameter("id"));
-    	System.out.println("ACTION ADD  grouppppppppppp--->" + idGroup);
     	final long idContact = Long.parseLong(request.getParameter("idContact"));
-    	System.out.println("ACTION ADD  connntacttttt--->" + idContact);
-        //final long idContact = lForm.getId();
-        //final long idGroup = lForm.getIdGroup();
         
         ContactService lContactService = new ContactService();
         
         lContactService.addContactToGroup(idContact, idGroup);
-        //System.out.println("ACTION ADD --->" + nom + prenom);
 
         List<Contact> listGroupContacts = new ArrayList<Contact>();
         List<Contact> listContactsOutOfGroup = new ArrayList<Contact>();
@@ -41,10 +36,7 @@ public class AddContactInGroupAction extends Action {
     	
     	request.setAttribute("listGroupContacts", listGroupContacts);
     	request.setAttribute("listContactsOutOfGroup", listContactsOutOfGroup);
-    	if(listGroupContacts.isEmpty()) {
-            return mapping.findForward("displaylist");
+            
+    	return mapping.findForward("displaylist");
         }
-    	else
-    		return mapping.findForward("displaylist");
-    	}
 }

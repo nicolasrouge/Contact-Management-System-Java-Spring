@@ -23,21 +23,15 @@ public class AddGroupAction extends Action {
     
     public ActionForward execute(final ActionMapping pMapping, ActionForm pForm, final HttpServletRequest pRequest, final HttpServletResponse pResponse) throws NamingException, SQLException {
     	final AddGroupValidationForm lForm=(AddGroupValidationForm)pForm;
-    	
-        final String nomGroupe = lForm.getGroupName();
-        //créer un nouveau contact
+        
+    	final String nomGroupe = lForm.getGroupName();
         final DAOContact lDAOContact = new DAOContact();
-        //final String lError = lDAOContact.addContact(firstName,lastName, email,"toto", "toto", "toto", "country" );
+        
         lDAOContact.addGroup(nomGroupe);
-
-
         List<ContactGroup> listGroups = new ArrayList<ContactGroup>();
-        
         listGroups = lDAOContact.getListGroup();
-        
     	pRequest.setAttribute("listGroups", listGroups);
-    	
-    return pMapping.findForward("displaygrouplist");
+    	return pMapping.findForward("displaygrouplist");
     }
    
 }

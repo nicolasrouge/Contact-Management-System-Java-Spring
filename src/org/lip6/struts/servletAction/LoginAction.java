@@ -11,8 +11,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.LoginForm;
-import org.lip6.struts.domain.Contact1;
-import org.lip6.struts.domain.DAOContact1;
+import org.lip6.struts.domain.Contact;
+import org.lip6.struts.domain.DAOContact;
 
 public class LoginAction extends Action {
 
@@ -21,11 +21,11 @@ public class LoginAction extends Action {
         LoginForm loginForm = (LoginForm) form;
         
         
-        DAOContact1 lDAOContact = new DAOContact1();
+        DAOContact lDAOContact = new DAOContact();
         
-        List<Contact1> listContacts = new ArrayList<Contact1>();
+        List<Contact> listContacts = new ArrayList<Contact>();
         
-        listContacts = lDAOContact.getListContacts();
+        //listContacts = lDAOContact.getListContacts();
         
     	request.setAttribute("listContacts", listContacts);
     	

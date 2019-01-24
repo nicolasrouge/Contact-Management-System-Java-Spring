@@ -34,7 +34,7 @@
 		<td><bean:write name="listGroupId" property="groupName"/></td>
 		
 		<td><html:link action="ShowGroup.do" paramId="id" paramName="listGroupId" paramProperty="group_ID">
-		<bean:message key="contact.show" />
+		<bean:message key="group.show" />
 		</html:link></td>
 		
 	</tr>
@@ -44,7 +44,7 @@
 	
 	</table>
 			<h4>
-			<a href="Main.do"><bean:message key="main.redirection" /></a>
+			<a href="ListPage.do"><bean:message key="liste.contact.redirection" /></a>
 		</h4>
    </body>
 </html:html>

@@ -20,7 +20,7 @@
    	</head>
 	
    	<body bgcolor="white">
-  	<h1 align="center">Gérer le groupe</h1>
+  	<h1 align="center">Gérer le groupe<%out.println(request.getParameter("id"));%></h1>
   	<h4 >
   	<a href="createGroup.do" ><bean:message key="main.addgroup.link"/></a></h4>
   	<br>
@@ -76,14 +76,6 @@
 		<td><bean:write name="listContactId" property="nom"/></td>
 		<td><bean:write name="listContactId" property="mail"/></td>
 		
-		<td><html:link action="AddContactInGroup.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
-		<bean:message key="contact.add.in.group" />
-		</html:link></td>
-
-		<td><html:link action="RemoveContact.do" paramId="id" paramName="listContactId" paramProperty="contact_ID">
-		<bean:message key="contact.remove" />
-		</html:link></td>
-		
 		<td><a href="AddContactInGroup.do?id=<%out.println(request.getParameter("id"));%>&idContact=<bean:write name="listContactId" property="contact_ID"/>">
 		<bean:message key="contact.add.in.group"/></a></td>
 		
@@ -93,7 +85,7 @@
 	
 
 			<h4>
-			<a href="Main.do"><bean:message key="main.redirection" /></a>
+			<html:link action="ListGroup.do" ><bean:message key="liste.contact.redirection" /></html:link>
 		</h4>
    </body>
 </html:html>
