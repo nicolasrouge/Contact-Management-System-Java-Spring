@@ -1,8 +1,6 @@
 package org.lip6.struts.actionForm;
 
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,6 +11,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.PhoneNumber;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import service.ContactService;
 
@@ -93,7 +93,9 @@ public class UpdateContactValidationForm extends ActionForm{
     	System.out.println("UpdateValidationForm id : " + request.getParameter("id"));
     	Long id_contact =Long.valueOf(request.getParameter("id"));
 		Contact contact;
-    	ContactService lContactService = new ContactService();
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
 			try {
 				contact = lContactService.getContact(id_contact);
 				System.out.println("RESET RESET contact id : " + contact.getId_contact());

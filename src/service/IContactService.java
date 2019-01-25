@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.ContactGroup;
-import org.lip6.struts.domain.DAOContact;
 import org.lip6.struts.domain.PhoneNumber;
 
 public interface IContactService {
@@ -14,6 +13,8 @@ public interface IContactService {
 	public List<Contact> getListContact();
 	
 	public Contact getContact(long id);
+	
+	public boolean createGroup(String nomgroupe) throws Exception;
 	
 	public List<PhoneNumber> getPhones(long id);
 	

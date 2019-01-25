@@ -11,7 +11,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.DeleteContactValidationForm;
 import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.DAOContact;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -32,19 +31,19 @@ public class DeleteContactAction extends Action {
 	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
     ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
 
-    final boolean lError = lContactService.deleteContact(id);
+    final boolean result = lContactService.deleteContact(id);
             
-     if(lError == true ) {
+     if(result == true ) {
                 List<Contact> listContacts = new ArrayList<Contact>();
                 listContacts = lContactService.getListContact();
             	pRequest.setAttribute("listContacts", listContacts);
                 
                 // if no exception is raised,  forward "success"
                 return pMapping.findForward("success");
-            }
-            else {
+     }
+     else {
                 // If any exception, return the "error" forward
                 return pMapping.findForward("error");
-            }
-        }
+     }
+    }
 }
