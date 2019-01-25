@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.ContactGroup;
-import org.lip6.struts.domain.DAOContact;
 import org.lip6.struts.domain.PhoneNumber;
 
 public interface IContactService {

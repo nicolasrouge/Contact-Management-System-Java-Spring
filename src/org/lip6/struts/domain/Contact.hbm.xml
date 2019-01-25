@@ -39,7 +39,7 @@
 		</set>
 		
 		<!-- pour un contact on a 0 ou n groupes -->
-		<set name="groups" table="CONTACT_GROUP" inverse="true" lazy="false" >
+		<set name="groups" table="CONTACT_GROUP" inverse="true" cascade="all" lazy="false" >
 			<key column="id_contact"/>
 			<many-to-many class="ContactGroup" column="id_group"/>
 		</set>

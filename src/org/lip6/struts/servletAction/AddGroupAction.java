@@ -12,11 +12,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.lip6.struts.actionForm.AddContactValidationForm;
 import org.lip6.struts.actionForm.AddGroupValidationForm;
-import org.lip6.struts.domain.Contact;
 import org.lip6.struts.domain.ContactGroup;
-import org.lip6.struts.domain.DAOContact;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

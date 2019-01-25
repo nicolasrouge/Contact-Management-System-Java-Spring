@@ -28,43 +28,58 @@ public class DAOContact {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
-	public boolean addContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) {
-		Session session = null;
+	
+public boolean addContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) {
+		
 		boolean res = false;
+		
+		// creation d'un contact et son insertion dans la BD
+		
 		Contact newcontact = new Contact();
+		
+		newcontact.setId_contact(1);
 		newcontact.setFirstname(lastname);
 		newcontact.setLastname(firstname);
 		newcontact.setEmail(email);
+		
 		Address newaddress = new Address(1,street,city,zip,country);
+		
 		newcontact.setAddress(newaddress);
+
 		PhoneNumber newphone = new PhoneNumber();
+		
+		newphone.setId_phone(12);
 		newphone.setPhoneNumber(phonenumber);
 		newphone.setContact(newcontact);
+		
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			session.save(newaddress);
-			session.save(newcontact);
-			session.save(newphone);
-			session.getTransaction().commit();
+			
+			this.sessionFactory.getCurrentSession().save(newaddress);
+			this.sessionFactory.getCurrentSession().save(newcontact);
+			this.sessionFactory.getCurrentSession().save(newphone);
+			
+			System.out.print("DAO ADD " + newcontact.getFirstname());
+			
+			System.out.println("Done");
 			res = true;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+
 		}
 		return res;
+
 	}
-	
-	public Contact getContact(long id) {
-		this.sessionFactory.getCurrentSession();
-		Contact contact = null;
-		try {  
-		      contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-		return contact;
+
+public Contact getContact(long id) {
+	this.sessionFactory.getCurrentSession();
+	Contact contact = null;
+	try {  
+	      contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
+	} catch (HibernateException e) {
+		e.printStackTrace();
 	}
+	return contact;
+}
 	
 	public List<PhoneNumber> getPhones(long id) {
 		try {
