@@ -5,10 +5,10 @@ import java.util.Set;
 
 public class Contact {
 	
-	private long contact_ID;
-	private String nom;
-	private String prenom;
-	private String mail;
+	private long id_contact;
+	private String lastname;
+	private String firstname;
+	private String email;
 	private Address address;
 	private Set<PhoneNumber> phones = new HashSet<PhoneNumber>();
 	private Set<ContactGroup> groups = new HashSet<ContactGroup>();
@@ -17,64 +17,64 @@ public class Contact {
 	public Contact() {
 	}
 	
-	public Contact(long contact_ID, String nom, String prenom, String mail, Address address) {
+	public Contact(long id_contact, String lastname, String firstname, String mail, Address address) {
 		super();
-		this.contact_ID = contact_ID;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.mail = mail;
+		this.id_contact = id_contact;
+		this.lastname= lastname;
+		this.firstname = firstname;
+		this.email = mail;
 		this.address = address;
 	}
 	
-	public Contact(String nom, String prenom, String mail, Address address) {
+	public Contact(String lastname, String firstname, String mail, Address address) {
 		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.mail = mail;
+		this.lastname= lastname;
+		this.firstname = firstname;
+		this.email = mail;
 		this.address = address;
 	}
 	
 	public Contact(Contact contact) {
 		super();
-		this.contact_ID = contact.contact_ID;
-		this.nom = contact.nom;
-		this.prenom = contact.prenom;
-		this.mail = contact.mail;
+		this.id_contact = contact.id_contact;
+		this.lastname= contact.lastname;
+		this.firstname = contact.firstname;
+		this.email = contact.email;
 		this.address = contact.address;
 		this.phones = contact.phones;
 		this.groups = contact.groups;
 	}
 
-	public long getContact_ID() {
-		return contact_ID;
+	public long getId_contact() {
+		return id_contact;
 	}
 
-	public void setContact_ID(long contact_ID) {
-		this.contact_ID = contact_ID;
+	public void setId_contact(long id_contact) {
+		this.id_contact = id_contact;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setLastname(String lastname) {
+		this.lastname= lastname;
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String mail) {
+		this.email = mail;
 	}
 
 	public Address getAddress() {

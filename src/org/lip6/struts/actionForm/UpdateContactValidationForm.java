@@ -1,5 +1,7 @@
 package org.lip6.struts.actionForm;
 
+import java.util.Iterator;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.validator.EmailValidator;
@@ -8,6 +10,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.lip6.struts.domain.Contact;
+import org.lip6.struts.domain.PhoneNumber;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -22,8 +25,8 @@ public class UpdateContactValidationForm extends ActionForm{
 	private static final long serialVersionUID = 1L;
 	
     private long id=0;   
-    private String firstName=null;
-    private String lastName=null;
+    private String firstname=null;
+    private String lastname=null;
     private String email=null;
 	private String phoneNumber=null;
 	private String street=null;
@@ -67,17 +70,17 @@ public class UpdateContactValidationForm extends ActionForm{
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	public String getEmail() {
 		return email;
@@ -95,15 +98,20 @@ public class UpdateContactValidationForm extends ActionForm{
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
 			try {
 				contact = lContactService.getContact(id_contact);
-		    	//this.id  = contact.getContact_ID();
-		    	this.lastName =contact.getNom();
-		    	this.firstName = contact.getNom();
-		    	this.email = contact.getMail();
+				System.out.println("RESET RESET contact id : " + contact.getId_contact());
+		    	this.id  = contact.getId_contact();
+		    	this.lastname =contact.getLastname();
+		    	this.firstname = contact.getLastname();
+		    	this.email = contact.getEmail();
 		    	this.city = contact.getAddress().getCity();
 		    	this.country = contact.getAddress().getCountry();
 		    	this.street = contact.getAddress().getStreet();
 		    	this.zip = contact.getAddress().getZip();
-		    	this.phoneNumber = "0733333333";
+		    	
+		    	Iterator<PhoneNumber> iter = contact.getPhones().iterator();
+		    	PhoneNumber phoneNumber = iter.next();
+		    	
+		    	this.phoneNumber = phoneNumber.getPhoneNumber();
 		    	
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -117,23 +125,23 @@ public class UpdateContactValidationForm extends ActionForm{
     		ActionErrors errors = new ActionErrors();
             
     		//ne doit pas etre vide
-            if( getFirstName()== null || getFirstName().length() < 1) {
-              errors.add("firstName",new ActionMessage("creation.fn.error.required"));
+            if( getFirstname()== null || getFirstname().length() < 1) {
+              errors.add("firstname",new ActionMessage("creation.fn.error.required"));
             }
             
             //ne doit pas contenir de nombres
-            if( getFirstName().matches(".*\\d.*")) {//matches("[0-9]+")
-                errors.add("firstName",new ActionMessage("creation.fn.error.number"));
+            if( getFirstname().matches(".*\\d.*")) {//matches("[0-9]+")
+                errors.add("firstname",new ActionMessage("creation.fn.error.number"));
             }
             
             //ne doit pas etre vide
-            if( getLastName()== null || getLastName().length() < 1) {
-              errors.add("lastName",new ActionMessage("creation.ln.error.required"));
+            if( getLastname()== null || getLastname().length() < 1) {
+              errors.add("lastname",new ActionMessage("creation.ln.error.required"));
             }
             
             //ne doit pas contenir de nombres
-            if( getLastName().matches(".*\\d.*")) {
-                errors.add("lastName",new ActionMessage("creation.ln.error.number"));
+            if( getLastname().matches(".*\\d.*")) {
+                errors.add("lastname",new ActionMessage("creation.ln.error.number"));
             }
             //ne doit pas etre vide
             if( getEmail() == null || getEmail().length() < 1) {

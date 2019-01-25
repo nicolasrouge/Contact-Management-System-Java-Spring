@@ -4,7 +4,7 @@
 <hibernate-mapping package="org.lip6.struts.domain">
 
 	<class name="ContactGroup" table="CONTACTSGROUP">
-		<id name="group_ID" type="long" column="group_ID">
+		<id name="id_group" type="long" column="id_group">
 			<generator class="increment" />
 		</id>
 		
@@ -16,8 +16,8 @@
 		
 		<!-- pour un groupe on a 0 ou n contacts -->
 		<set name="contacts" table="CONTACT_GROUP">
-			<key column="group_ID"/>
-			<many-to-many class="Contact" column="contact_ID"/>
+			<key column="id_group"/>
+			<many-to-many class="Contact" column="id_contact"/>
 		</set>
 		
 	</class>

@@ -29,8 +29,8 @@ public class UpdateAction extends Action {
     	UpdateContactValidationForm updateForm = (UpdateContactValidationForm) form;
     	
     	long id = updateForm.getId();
-        final String nom = updateForm.getFirstName();
-        final String prenom = updateForm.getLastName();
+        final String lastname= updateForm.getFirstname();
+        final String firstname = updateForm.getLastname();
         final String mail = updateForm.getEmail();
         final String phonenumber = updateForm.getPhoneNumber();
         final String street = updateForm.getStreet();
@@ -42,7 +42,7 @@ public class UpdateAction extends Action {
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
     	
     	try {
-			lContactService.updateContact(id, nom,prenom,mail,phonenumber,street,city,zip,country);
+			lContactService.updateContact(id, lastname,firstname,mail,phonenumber,street,city,zip,country);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

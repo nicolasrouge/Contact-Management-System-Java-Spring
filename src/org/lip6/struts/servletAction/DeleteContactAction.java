@@ -18,32 +18,32 @@ import service.ContactService;
  
  
 public class DeleteContactAction extends Action {
-    
+     
     public ActionForward execute(final ActionMapping pMapping,
             ActionForm pForm, final HttpServletRequest pRequest,
             final HttpServletResponse pResponse) throws Exception, Exception {
-    
+     
     final DeleteContactValidationForm lForm=(DeleteContactValidationForm)pForm;
-    
+     
     final long id = lForm.getId();
-    
+     
     // delete a Contact
-    ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
     ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
-    		//final DAOContact lDAOContact = new DAOContact();
-            final boolean lError = lContactService.deleteContact(id);
-           
-     if(lError == true ) {
+
+    final boolean result = lContactService.deleteContact(id);
+            
+     if(result == true ) {
                 List<Contact> listContacts = new ArrayList<Contact>();
                 listContacts = lContactService.getListContact();
-                pRequest.setAttribute("listContacts", listContacts);
-               
+            	pRequest.setAttribute("listContacts", listContacts);
+                
                 // if no exception is raised,  forward "success"
                 return pMapping.findForward("success");
-            }
-            else {
+     }
+     else {
                 // If any exception, return the "error" forward
                 return pMapping.findForward("error");
-            }
-        }
+     }
     }
+}

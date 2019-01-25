@@ -6,6 +6,7 @@
 <%@page import ="org.lip6.struts.domain.Contact" %>
 <%@page import ="java.util.ArrayList" %>
 <%@page import ="java.util.List" %>
+
   
    <html:html>
    
@@ -14,16 +15,18 @@
 	<link rel="stylesheet" type="text/css"
 	href="css\bootstrap-4.0.0-beta.2-dist\css\bootstrap.css" />
 	
-   	<title><bean:message key="add.contact"/></title>
+   	<title>Mon groupe</title>
    
    	</head>
 	
    	<body bgcolor="white">
-  	<h1 align="center"><bean:message key="showlist.title"/></h1>
-  	<h4 ><a href="ContactCreation.do" ><bean:message key="main.addcontact.link"/></a>
-  	<a href="createGroup.do" ><bean:message key="main.addgroup.link"/></a>
-  	<a href="RecherchePage.do"><bean:message key="main.recherhce.link"/></a>
-  	<a href="GroupList.do"><bean:message key="main.list.group.link"/></a></h4><br>
+  	<h1 align="center">Gérer le groupe <%out.println(request.getParameter("id"));%></h1>
+  	<h4 >
+  	<a href="createGroup.do" ><bean:message key="main.addgroup.link"/></a></h4>
+  	<br>
+  	
+  	<h2>Contacts du groupe</h2>
+  	
 	<table class="table table-striped" >
 	<tr>
 		<td><bean:message key="showlist.id"/></td>
@@ -33,7 +36,7 @@
 		<td align="center" colspan="2">Actions</td>
 	</tr>
 
-	<logic:iterate name="listContacts" id="listContactId">
+	<logic:iterate name="listGroupContacts" id="listContactId">
 	<tr>
 		<td><bean:write name="listContactId" property="id_contact"/></td>
 		<td><bean:write name="listContactId" property="firstname"/></td>
@@ -55,11 +58,34 @@
 	</tr>
 	</logic:iterate>
 	
-	
+		</table>
+		
+		<h2>Tous les contacts</h2>
+		<table class="table table-striped" >
+	<tr>
+		<td><bean:message key="showlist.id"/></td>
+		<td><bean:message key="showlist.fname"/></td>
+		<td><bean:message key="showlist.lname"/></td>
+		<td><bean:message key="showlist.email"/></td>
+		<td align="center" colspan="2">Actions</td>
+	</tr>
+	<logic:iterate name="listContactsOutOfGroup" id="listContactId">
+	<tr>
+		<td><bean:write name="listContactId" property="id_contact"/></td>
+		<td><bean:write name="listContactId" property="firstname"/></td>
+		<td><bean:write name="listContactId" property="lastname"/></td>
+		<td><bean:write name="listContactId" property="email"/></td>
+		
+		<td><a href="AddContactInGroup.do?id=<%out.println(request.getParameter("id"));%>&idContact=<bean:write name="listContactId" property="id_contact"/>">
+		<bean:message key="contact.add.in.group"/></a></td>
+		
+	</logic:iterate>
 	
 	</table>
+	
+
 			<h4>
-			<a href="Main.do"><bean:message key="main.redirection" /></a>
+			<html:link action="GroupList.do" ><bean:message key="liste.contact.redirection" /></html:link>
 		</h4>
    </body>
 </html:html>

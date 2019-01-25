@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class ContactGroup {
 	
-	private long group_ID;
+	private long id_group;
 	private String groupName;
 	private Set<Contact> contacts = new HashSet<Contact>();
 	private int version;
@@ -14,17 +14,17 @@ public class ContactGroup {
 	public ContactGroup() {
 		super();
 	}
-	public ContactGroup(long group_ID, String groupName) {
+	public ContactGroup(long id_group, String groupName) {
 		super();
-		this.group_ID = group_ID;
+		this.id_group = id_group;
 		this.groupName = groupName;
 	}
 	
-	public long getGroup_ID() {
-		return group_ID;
+	public long getId_group() {
+		return id_group;
 	}
-	public void setGroup_ID(long group_ID) {
-		this.group_ID = group_ID;
+	public void setId_group(long id_group) {
+		this.id_group = id_group;
 	}
 	public String getGroupName() {
 		return groupName;
@@ -41,12 +41,10 @@ public class ContactGroup {
 	public void setContact(Contact contact) {
 		contacts.add(contact);
 	}	
-	
 	public int getVersion() {
 		return version;
 	}
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
 }

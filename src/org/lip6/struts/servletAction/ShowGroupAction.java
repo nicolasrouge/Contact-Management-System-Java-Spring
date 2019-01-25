@@ -10,33 +10,35 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.lip6.struts.actionForm.LoginForm;
+import org.lip6.struts.actionForm.UpdateContactValidationForm;
 import org.lip6.struts.domain.Contact;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import service.ContactService;
 
-public class LoginAction extends Action {
-
-
+public class ShowGroupAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LoginForm loginForm = (LoginForm) form;
-        
+		UpdateContactValidationForm lForm = new UpdateContactValidationForm();
+		
+		final long id = Long.parseLong(request.getParameter("id"));
+		
     	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
+	    
         
-        List<Contact> listContacts = new ArrayList<Contact>();
+        List<Contact> listGroupContacts = new ArrayList<Contact>();
+        List<Contact> listContactsOutOfGroup = new ArrayList<Contact>();
         
-        listContacts = lContactService.getListContact();
-        
-    	request.setAttribute("listContacts", listContacts);
+    	listGroupContacts = lContactService.getGroupContacts(id);
+    	listContactsOutOfGroup = lContactService.getContactsOutOfGroup(id);
     	
-    	
-        if (loginForm.getUserName().equals(loginForm.getPassword())) {
-            return mapping.findForward("success");
-        } else {
-            return mapping.findForward("failure");
+    	request.setAttribute("listGroupContacts", listGroupContacts);
+    	request.setAttribute("listContactsOutOfGroup", listContactsOutOfGroup);
+    	if(listGroupContacts.isEmpty()) {
+            return mapping.findForward("displaylist");
         }
-    }
+    	else
+    		return mapping.findForward("displaylist");
+    	}
 }

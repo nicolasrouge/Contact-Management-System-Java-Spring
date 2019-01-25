@@ -1,0 +1,10 @@
+diff a/src/Resources.properties b/src/Resources.properties	(rejected hunks)
+@@ -56,6 +56,5 @@
+ main.addgroup.link= Add Group Link
+ main.list.group.link=My Link Group
+ group.list=My groups
+-group.name= name of group
+\ No newline at end of file
+ group.name= name of group
+ following.enter= Please Enter The Following Details
+\ No newline at end of file

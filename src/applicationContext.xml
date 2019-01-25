@@ -11,16 +11,6 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 	
-	<!--  <aop:config>
-		<aop:aspect id="daoContactBean" ref="daoContact">
-		<aop:before
-			pointcut="execution(* addcontact(String,String,String,String,String,String,String,String))
-					and args(firstName,lastName,email,phonenumber,street,city,zip,country)"
-			method="addContact" arg-names="firstName,lastName,email,phonenumber,street,city,zip,country"/>
-		</aop:aspect>
-	</aop:config>
-	<bean id="daoContact" class="org.lip6.struts.domain.DAOContact"/> -->
-	
 	<bean id="dataSource"
 	class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 	destroy-method="getCatalog">
@@ -66,4 +56,30 @@
 			<ref bean="daocontact"/>
 		</constructor-arg>
 	</bean>
+	
+	<!-- AOP Logger -->
+	
+	<!--<aop:config>
+		<aop:aspect id="LoggerBeanR" ref="removeLogger">
+			<aop:before
+				pointcut="execution(boolean org.lip6.struts.domain.DAOContact.deleteContact(org.lip6.struts.domain.Contact))
+					and args(id)
+					and args(firstName,lastName,email,phonenumber,street,city,zip,country)"
+				method="log" arg-names="id"/>
+		</aop:aspect>
+	</aop:config>
+	<bean id="removeLogger" class="log.AOPLoggerRemove"/>
+	
+	<aop:config>
+		<aop:aspect id="LoggerBeanA" ref="addLogger">
+			<aop:before
+				pointcut="execution(boolean org.lip6.struts.domain.DAOContact.addContact(org.lip6.struts.domain.Contact))
+					and args(firstName,lastName,email,phonenumber,street,city,zip,country)"
+				method="log" arg-names="firstName,lastName,email,phonenumber,street,city,zip,country"/>
+		</aop:aspect>
+	</aop:config>
+	<bean id="addLogger" class="log.AOPLoggerAdd"/> -->
+	
+	
+	
 </beans>

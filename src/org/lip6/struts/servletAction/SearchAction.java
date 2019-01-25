@@ -13,8 +13,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.actionForm.SearchValidationForm;
-import org.lip6.struts.domain.Contact1;
-import org.lip6.struts.domain.DAOContact1;
+import org.lip6.struts.domain.Contact;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.ContactService;
 
 
 public class SearchAction extends Action {
@@ -28,13 +31,15 @@ public class SearchAction extends Action {
 
 		final String word = lForm.getWord();
 		
-		List<Contact1> contacts = new ArrayList<Contact1>();
+		List<Contact> contacts = new ArrayList<Contact>();
 
-		DAOContact1 daoContact = new DAOContact1();
+    	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+        ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
+        
 		try {
-			contacts = daoContact.searchContact(word);
+			contacts = lContactService.searchContact(word);
 			pRequest.setAttribute("listContacts", contacts);
-		} catch (NamingException | SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

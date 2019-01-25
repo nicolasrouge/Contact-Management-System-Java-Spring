@@ -17,7 +17,7 @@
 
    </head>
    
-   <html:form action="AddGroup">//TODO
+   <html:form action="AddGroup">
 
    <table>
    		<tr>

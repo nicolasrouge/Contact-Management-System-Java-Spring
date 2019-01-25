@@ -1,8 +1,11 @@
 package org.lip6.struts.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -12,10 +15,10 @@ public class DAOContact {
 	
 	private SessionFactory sessionFactory;
 	
-	public DAOContact(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public DAOContact(SessionFactory sessionFactory){
+		this.sessionFactory=sessionFactory;
 	}
-
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -23,8 +26,8 @@ public class DAOContact {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
-	public boolean addContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) {
+	
+public boolean addContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) {
 		
 		boolean res = false;
 		
@@ -32,10 +35,10 @@ public class DAOContact {
 		
 		Contact newcontact = new Contact();
 		
-		newcontact.setContact_ID(1);
-		newcontact.setPrenom(lastName);
-		newcontact.setNom(firstName);
-		newcontact.setMail(email);
+		newcontact.setId_contact(1);
+		newcontact.setFirstname(lastname);
+		newcontact.setLastname(firstname);
+		newcontact.setEmail(email);
 		
 		Address newaddress = new Address(1,street,city,zip,country);
 		
@@ -43,7 +46,7 @@ public class DAOContact {
 
 		PhoneNumber newphone = new PhoneNumber();
 		
-		newphone.setPhone_ID(12);
+		newphone.setId_phone(12);
 		newphone.setPhoneNumber(phonenumber);
 		newphone.setContact(newcontact);
 		
@@ -53,7 +56,7 @@ public class DAOContact {
 			this.sessionFactory.getCurrentSession().save(newcontact);
 			this.sessionFactory.getCurrentSession().save(newphone);
 			
-			System.out.print("DAO ADD " + newcontact.getNom());
+			System.out.print("DAO ADD " + newcontact.getFirstname());
 			
 			System.out.println("Done");
 			res = true;
@@ -64,12 +67,12 @@ public class DAOContact {
 		return res;
 
 	}
-	
+
 	public Contact getContact(long id) {
 		this.sessionFactory.getCurrentSession();
 		Contact contact = null;
 		try {  
-		      contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
+			contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
@@ -77,11 +80,12 @@ public class DAOContact {
 	}
 	
 	public List<PhoneNumber> getPhones(long id) {
-		try { 
-		      Query q = this.sessionFactory.getCurrentSession().createQuery("select pN from PhoneNumber pN where pN.id = :id");
-		      q.setParameter("id", id);
-		      @SuppressWarnings("unchecked")
-		      List<PhoneNumber> list = q.list();
+		try {
+			//HQL parameter request
+			Query q = this.sessionFactory.getCurrentSession().createQuery("select pN from PhoneNumber pN where pN.id = :id");
+			q.setParameter("id", id);
+			@SuppressWarnings("unchecked")
+			List<PhoneNumber> list = q.list();
 			return list;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -90,39 +94,28 @@ public class DAOContact {
 	}
 	
 	public boolean addGroup(String nomGroup) {
-		ContactGroup group = new ContactGroup();
-
-		group.setGroup_ID(1);
-		group.setGroupName(nomGroup);
-		
-		//créer un contact au préalable
-		//group.setContact(contact);
-		
 		try {
+			ContactGroup group = new ContactGroup();
+			group.setId_group(1);
+			group.setGroupName(nomGroup);
 			this.sessionFactory.getCurrentSession().save(group);
-	
-			System.out.println("Done");
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-
 		}
 		return true;
-
 	}
 	
 	public List<Contact> getListContacts() {
 		List<Contact> lesContacts = new ArrayList<Contact>();
 		try {
-			StringBuffer requestS = new StringBuffer();
-			requestS.append("select contact from Contact contact");
-			Query request = this.sessionFactory.getCurrentSession().createQuery(requestS.toString());
-			
+			Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Contact.class);
 			@SuppressWarnings("unchecked")
-			List<Contact> list = request.list();
-			//on récupère chaque contact de la requête et on les mets dans la liste 'lescontacts'
+			List<Contact> list = criteria.list();
+			
 			for(Contact contact : list) {
 				Contact c = new Contact(contact);
-				c.setContact_ID(contact.getContact_ID());
+				c.setId_contact(contact.getId_contact());
 				lesContacts.add(c);
 			}
 		} catch (HibernateException e) {
@@ -135,19 +128,17 @@ public class DAOContact {
 	
 	public List<ContactGroup> getListGroup(){
 		List<ContactGroup> lesGroupes = new ArrayList<ContactGroup>();
-		try {		
-			StringBuffer requestS = new StringBuffer();
-			requestS.append("select contactGroup from ContactGroup contactGroup");
-			System.out.println("DAO GROUP request"+requestS.toString());
-			Query request = this.sessionFactory.getCurrentSession().createQuery(requestS.toString());
+		try {
+			Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(ContactGroup.class);
 			
-			List<ContactGroup> list = request.list();
+			@SuppressWarnings("unchecked")
+			List<ContactGroup> list = criteria.list();
+			
 			for(ContactGroup group : list) {
 				ContactGroup groupe = new ContactGroup();
-				groupe.setGroup_ID(group.getGroup_ID());
+				groupe.setId_group(group.getId_group());
 				groupe.setGroupName(group.getGroupName());
 				lesGroupes.add(groupe);
-				System.out.println("DAO GROUP "+group.getGroupName());
 			}
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -169,35 +160,101 @@ public class DAOContact {
 		return res;
 	}
 	
-	public boolean updateContact(long id, String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country){
+	public boolean updateContact(long id, String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country){
 	    try {
-			Contact contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
-			System.out.println("UPDATE :" + contact.getMail());
+	    	Contact contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
 			
-			contact.setMail(email);
-			contact.setNom(lastName);
-			contact.setPrenom(firstName);
-			//TODO Phone NUMBER
+			contact.setEmail(email);
+			contact.setLastname(lastname);
+			contact.setFirstname(firstname);
 			contact.getAddress().setCity(city);
 			contact.getAddress().setCountry(country);
 			contact.getAddress().setStreet(street);
 			contact.getAddress().setZip(zip);
 			
+			@SuppressWarnings("rawtypes")
+			Iterator it = contact.getPhones().iterator();
+			   while(it.hasNext()) {
+				      PhoneNumber obj = (PhoneNumber)it.next();
+				      obj.setPhoneNumber(phonenumber);
+				    }
 			this.sessionFactory.getCurrentSession().update(contact);
 	    } catch (Exception e) {
 	        return true;
 	    }
 	    return false;
 	}
-	
+
 	public void generate() {
-		addContact("Nicolas", "Rouge", "nicolas.rouge@gmail.com", "0750474601","rue des olives","Nanterre", "92000", "France");
-		addContact("Lucas", "Nayet", "lucas.nayet@gmail.com", "0634261733","rue du puit","Nanterre", "92000", "France");
+		addContact("Rouge", "Nicolas", "nicolas.rouge@gmail.com", "0750474601","rue des olives","Nanterre", "92000", "France");
+		addContact("Nayet", "Lucas", "lucas.nayet@gmail.com", "0634261733","rue du puit","Nanterre", "92000", "France");
 	}
 
-	public List<Contact> searchContact(String word) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean addContactToGroup(Long idContact, Long idGroup) {
+		try {
+			ContactGroup group = (ContactGroup) this.sessionFactory.getCurrentSession().get(ContactGroup.class, idGroup);
+			Contact contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, idContact);
+			
+			if(group.getContacts()== null)
+				group.setContacts(new HashSet<Contact>());
+			group.getContacts().add(contact);
+			
+			if (contact.getGroups() == null)
+				contact.setGroups(new HashSet<ContactGroup>());
+			contact.getGroups().add(group);
+			
+			this.sessionFactory.getCurrentSession().saveOrUpdate(group);
+			
+			return true;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
+	public List<Contact> getGroupContacts(Long idGroupContact) {
+		List<Contact> lesContacts = new ArrayList<Contact>();
+
+		try {
+			//HQL parameter request
+			Query q = this.sessionFactory.getCurrentSession().createQuery("select contact from Contact as contact join contact.groups as group where group.id_group = :id");
+			q.setParameter("id", idGroupContact);
+			
+			@SuppressWarnings("unchecked")
+			List<Contact> list = q.list();
+			
+			for(Contact contact : list) {
+				Contact c = new Contact(contact);
+				c.setId_contact(contact.getId_contact());
+				lesContacts.add(c);
+			}			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lesContacts;
+	}
+	
+	public List<Contact> getContactsOutOfGroup(Long idGroupContact) {
+		List<Contact> lesContacts = new ArrayList<Contact>();
+		try {
+			//HQL simple request
+			Query q = this.sessionFactory.getCurrentSession().createQuery("select contact from Contact as contact");
+			
+			@SuppressWarnings("unchecked")
+			List<Contact> list = q.list();
+			
+			for(Contact contact : list) {
+				Contact c = new Contact(contact);
+				c.setId_contact(contact.getId_contact());
+				lesContacts.add(c);
+			}			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lesContacts;
+}
 }

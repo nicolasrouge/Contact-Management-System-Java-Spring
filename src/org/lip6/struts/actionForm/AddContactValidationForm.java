@@ -23,8 +23,8 @@ public class AddContactValidationForm extends ActionForm {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-    private String firstName=null;
-    private String lastName=null;
+    private String firstname=null;
+    private String lastname=null;
     private String email=null;
     private String phonenumber=null;
     private String street=null;
@@ -32,17 +32,17 @@ public class AddContactValidationForm extends ActionForm {
     private String zip=null;
     private String country=null;
 	
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	public String getEmail() {
 		return email;
@@ -83,8 +83,8 @@ public class AddContactValidationForm extends ActionForm {
 	@Override
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		//this.id=0;
-		this.firstName=null;
-		this.lastName=null;
+		this.firstname=null;
+		this.lastname=null;
 		this.email=null;
 		this.phonenumber=null;
 		this.street=null;
@@ -99,29 +99,22 @@ public class AddContactValidationForm extends ActionForm {
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService serviceContact = (service.ContactService) context.getBean("serviceContact");
 		List<Contact> listContacts = new ArrayList<Contact>();
-       
-        listContacts = (List<Contact>) serviceContact.getListContact();
 		
-        //request.setAttribute("listContacts", listContacts);
+		listContacts = (List<Contact>) serviceContact.getListContact(); 	
         
-        // Contact
-        /*if (getId() < 1) {
-        	errors.add("id", new ActionMessage("creation.id.error.required"));
-        }*/   	
-        
-        if( getFirstName()== null || getFirstName().length() < 1 ) {
-        	errors.add("firstName",new ActionMessage("creation.fn.error.required"));
+        if( getFirstname()== null || getFirstname().length() < 1 ) {
+        	errors.add("firstname",new ActionMessage("creation.fn.error.required"));
         }     
         //ne doit pas contenir de nombres
-        if( getFirstName().matches(".*\\d.*")) {//matches("[0-9]+")
-            errors.add("firstName",new ActionMessage("creation.fn.error.number"));
+        if( getFirstname().matches(".*\\d.*")) {//matches("[0-9]+")
+            errors.add("firstname",new ActionMessage("creation.fn.error.number"));
         }
-        if( getLastName()== null || getLastName().length() < 1 ) {
-        	errors.add("lastName",new ActionMessage("creation.ln.error.required"));
+        if( getLastname()== null || getLastname().length() < 1 ) {
+        	errors.add("lastname",new ActionMessage("creation.ln.error.required"));
         }
         //ne doit pas contenir de nombres
-        if( getLastName().matches(".*\\d.*")) {
-            errors.add("lastName",new ActionMessage("creation.ln.error.number"));
+        if( getLastname().matches(".*\\d.*")) {
+            errors.add("lastname",new ActionMessage("creation.ln.error.number"));
         }
         if( getEmail() == null || getEmail().length() < 1 ) {
         	errors.add("email", new ActionMessage("creation.email.error.required"));

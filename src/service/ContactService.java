@@ -11,9 +11,9 @@ public class ContactService implements IContactService {
 	private DAOContact daocontact = null;
 	
 	public ContactService(){
-		
+
 	}
-	
+
 	public ContactService(DAOContact daocontact) {
 		this.daocontact = daocontact;
 	}
@@ -23,8 +23,8 @@ public class ContactService implements IContactService {
 	}
 
 	@Override
-	public boolean createContact(String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
-		return daocontact.addContact(firstName,lastName,email,phonenumber,street,city,zip,country);
+	public boolean createContact(String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
+		return daocontact.addContact(firstname,lastname,email,phonenumber,street,city,zip,country);
 	}
 	
 	@Override
@@ -48,23 +48,55 @@ public class ContactService implements IContactService {
 	}
 	
 	@Override
-	public boolean updateContact(long id, String firstName, String lastName, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
-		return daocontact.updateContact(id, firstName, lastName, email, phonenumber, street, city, zip, country);
+	public boolean updateContact(long id, String firstname, String lastname, String email, String phonenumber, String street, String city, String zip, String country) throws Exception {
+		return daocontact.updateContact(id,firstname,lastname,email,phonenumber,street,city,zip,country);
 	}
 
 	@Override
 	public boolean deleteContact(long id) throws Exception {
 		return daocontact.deleteContact(id);
 	}
-	
+
+	@Override
+	public List<Contact> searchContact(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public List<ContactGroup> getListGroup() {
 		return daocontact.getListGroup();
 	}
 
 	@Override
-	public List<Contact> searchContact(String keyword) {
+	public List<Contact> getGroupContacts(Long idGroupContact) {
+		return daocontact.getGroupContacts(idGroupContact);
+	}
+
+	@Override
+	public List<Contact> getContactsOutOfGroup(Long idGroupContact) {
+		return daocontact.getContactsOutOfGroup(idGroupContact);
+	}
+
+	@Override
+	public boolean addContactToGroup(Long idContact, Long i) {
+		return daocontact.addContactToGroup(idContact, i);
+	}
+
+	@Override
+	public boolean addGroup(String nomGroup) {
+		return	daocontact.addGroup(nomGroup);
+	}
+
+	@Override
+	public Contact displayContact(int idcontact) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void generate() {
+		daocontact.generate();
+		
 	}
 }

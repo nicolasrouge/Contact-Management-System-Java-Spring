@@ -9,9 +9,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.hibernate.SessionFactory;
 import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.DAOContact;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -47,11 +45,11 @@ public class AddGroupValidationForm extends ActionForm {
         ContactService serviceContact = (service.ContactService) context.getBean("serviceContact");
         @SuppressWarnings("unused")
 		List<Contact> listContacts = new ArrayList<Contact>();
-       
+
         listContacts = (List<Contact>) serviceContact.getListContact();
 
         if( getGroupName()== null || getGroupName().length() < 1 ) {
-        	errors.add("firstName",new ActionMessage("creation.fn.error.required"));
+        	errors.add("firstname",new ActionMessage("creation.fn.error.required"));
         }
         return errors;
 	}

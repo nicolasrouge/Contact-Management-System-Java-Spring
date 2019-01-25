@@ -39,4 +39,5 @@ public class GroupListAction extends Action {
     	else
     		return mapping.findForward("displaygrouplist");
     	}
+    
 }

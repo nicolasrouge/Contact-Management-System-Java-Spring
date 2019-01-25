@@ -13,7 +13,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.lip6.struts.domain.Contact;
-import org.lip6.struts.domain.DAOContact;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -25,10 +24,9 @@ public class ContactListAction extends Action {
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NamingException, SQLException {
 		
-    	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+    	@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
         ContactService lContactService = (service.ContactService) context.getBean("serviceContact");
-        /*DAOContact lDAOContact = new DAOContact();
-        lDAOContact.generate();*/
         
         List<Contact> listContacts = new ArrayList<Contact>();
         
@@ -36,9 +34,9 @@ public class ContactListAction extends Action {
         
     	request.setAttribute("listContacts", listContacts);
     	if(listContacts.isEmpty()) {
-            return mapping.findForward("error");
+            return mapping.findForward("displaylist");
         }
     	else
     		return mapping.findForward("displaylist");
-    }
+    	}
 }

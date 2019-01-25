@@ -36,8 +36,8 @@
 	
 	<tr>
 		<td><bean:write name="listContactId" property="id"/></td>
-		<td><bean:write name="listContactId" property="lastName"/></td>
-		<td><bean:write name="listContactId" property="firstName"/></td>
+		<td><bean:write name="listContactId" property="lastname"/></td>
+		<td><bean:write name="listContactId" property="firstname"/></td>
 		<td><bean:write name="listContactId" property="email"/></td>
 		
 		<td><html:link action="UpdatePage.do" paramId="id" paramName="listContactId" paramProperty="id">
