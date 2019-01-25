@@ -84,7 +84,7 @@ public Contact getContact(long id) {
 	public List<PhoneNumber> getPhones(long id) {
 		try {
 			//HQL parameter request
-			Query q = this.sessionFactory.getCurrentSession().createQuery("select pN from PhoneNumber pN where pN.id = :id");
+			Query q = this.sessionFactory.getCurrentSession().createQuery("select phone from PhoneNumber phone where phone.id = :id");
 			q.setParameter("id", id);
 			@SuppressWarnings("unchecked")
 			List<PhoneNumber> list = q.list();
@@ -174,6 +174,7 @@ public Contact getContact(long id) {
 			//session.delete(contact);
 			//session.getTransaction().commit();
 			Contact contact = (Contact) this.sessionFactory.getCurrentSession().get(Contact.class, id);
+			//contact.setGroups(null);
 			this.sessionFactory.getCurrentSession().delete(contact);
 			res = true;
 		} catch (HibernateException e) {
